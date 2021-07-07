@@ -1,9 +1,20 @@
+import 'package:calcall/listviewvisibility.dart';
 import 'package:flutter/material.dart';
-import './ButtonPad.dart';
-//import 'unitsList.dart';
-import 'DisplayScreen.dart';
+import 'Calculator.dart';
+import 'package:provider/provider.dart';
+import 'unitsList.dart';
+//import 'DisplayScreen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(ChangeNotifierProvider(
+      create: (context) => ListviewVisibility(), child: MyApp()));
+
+  //UnitsList.listItem[1].calculate();
+  //print('f');
+  //CalculatorState().displayNum2 = 'fk';
+ // print(CalculatorState().displayNum2);
+ // print('rama is blue');
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,77 +23,9 @@ class MyApp extends StatelessWidget {
       title: "Calcall",
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
-        body: Column(
-          children: [DisplayScreen(), ButtonPad()],
-        ),
+        resizeToAvoidBottomInset: false,
+        body: Calculator(),
       ),
     );
   }
 }
-
-/*Scaffold(
-        body: SafeArea(
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.35,
-            color: Colors.yellow,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Text('value'),
-                      Text('value'),
-                      Text('value'),
-                      Text('data'),
-                      Text('data')
-                    ],
-                  ),
-                  alignment: Alignment.topRight,
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  color: Colors.green,
-                ),
-                Visibility(
-                  visible: true,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Text('value'),
-                        Text('value'),
-                        Text('value'),
-                        Text('data'),
-                        Text('data')
-                      ],
-                    ),
-                    alignment: Alignment.topRight,
-                    height: MediaQuery.of(context).size.height * 0.35,
-                    color: Colors.blueGrey,
-                  ),
-                ),
-                Container(
-                  child: Center(
-                    child: Icon(Icons.chevron_left),
-                  ),
-                  alignment: Alignment.topRight,
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  color: Colors.lime,
-                )
-              ],
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.6,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.red,
-            child: (ButtonPad()),
-          )
-        ],
-      ),
-    ));
-  }
-}
-*/
