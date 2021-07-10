@@ -12,9 +12,9 @@ class DisplayScreen extends StatefulWidget {
   final Function hideUnits;
   final Function searchList;
   final Icon icon1;
-  final Function sciButtonHandler;
+  final void Function()? sciButtonHandler;
   final Function printLatestValue;
-  final Function printText;
+  final void Function(String text)? printText;
   final TextEditingController myController;
   final TextEditingController myController2;
 
@@ -22,18 +22,18 @@ class DisplayScreen extends StatefulWidget {
   final Function showUnit2;
 
   DisplayScreen(
-      {this.displayNum,
-      this.displayNum2,
-      this.displayResult,
-      this.hideUnits,
-      this.searchList,
-      this.icon1,
-      this.sciButtonHandler,
-      this.printLatestValue,
-      this.printText,
-      this.myController,
-      this.showUnit2,
-      this.myController2});
+      {required this.displayNum,
+      required this.displayNum2,
+      required this.displayResult,
+      required this.hideUnits,
+      required this.searchList,
+      required this.icon1,
+      required this.sciButtonHandler,
+      required this.printLatestValue,
+      required this.printText,
+      required this.myController,
+      required this.showUnit2,
+      required this.myController2});
 
   @override
   DisplayScreenState createState() => DisplayScreenState();
@@ -65,8 +65,8 @@ class DisplayScreenState extends State<DisplayScreen> {
                       children: [
                         Expanded(
                             flex: 12,
-                            child: Text(widget.displayNum2
-                              ,
+                            child: Text(
+                              widget.displayNum2,
                               textAlign: TextAlign.end,
                               style: TextStyle(fontSize: 20.0),
                             )),

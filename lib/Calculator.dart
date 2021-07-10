@@ -1,6 +1,7 @@
 import 'package:calcall/listviewvisibility.dart';
 import 'package:calcall/unititem.dart';
 import 'package:calcall/unitsList.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'DisplayScreen.dart';
@@ -145,12 +146,11 @@ class CalculatorState extends State<Calculator> {
     'tan',
   ];
   Icon icon1 = Icon(Icons.expand_more);
-   static String displayNum = '';
-  
+  static String displayNum = '';
 
-   static String displayNum2 = '';
+  static String displayNum2 = '';
 
-  String displayResult = '';
+  static String displayResult = '';
 
   static List<UnitItem> searchedListitem = UnitsList.listItem;
   static List<UnitItem> searchedListitem2 = UnitsList2.listItem;
@@ -176,7 +176,7 @@ class CalculatorState extends State<Calculator> {
     print('${myController.text}');
   }
 
-  printText(text) {
+  void printText(text) {
     setState(() {
       print(text);
       searchedListitem = UnitsList.listItem
@@ -279,9 +279,11 @@ class CalculatorState extends State<Calculator> {
     btnHandler() {
       print('btnText');
       setState(() {
+        int index = 0;
         switch (btnText) {
           case 'AC':
             displayNum = '';
+            displayNum2 = '';
             displayResult = '';
             break;
           case 'C':
@@ -330,16 +332,17 @@ class CalculatorState extends State<Calculator> {
             } catch (e) {
               //print(e);
             }
+          //int index = 0;
         }
         for (var item in UnitsList.listItem) {
-          //print(item.name);
+          if (item.name == myController.text) {
+            index = UnitsList.listItem.indexOf(item);
+          }
           //UnitsList.listItem[0].calculate();
         }
-        displayNum2 = UnitsList.listItem[0].calculate();
-        //print(UnitsList.listItem[0].calculate);
-        //displayNum2 = 'difficult';
-        //print(displayNum2);
-        //displayNum += btnText;
+        if (displayResult != '') {
+          displayNum2 = UnitsList.listItem[index].calculate();
+        }
       });
       // print(DisplayScreen().displayNum);
       //DisplayScreenState.displayNum += no;
@@ -353,7 +356,9 @@ class CalculatorState extends State<Calculator> {
 
           style: OutlinedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: btnpading),
-              backgroundColor: Colors.grey),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0))),
+          //backgroundColor: Colors.grey, ),
 
           onPressed: btnHandler,
 
