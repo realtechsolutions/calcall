@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'DisplayScreen.dart';
 import 'package:function_tree/function_tree.dart';
 import 'package:calcall/unitsList2.dart';
+import 'package:intl/intl.dart';
 
 //import 'main.dart';
 class Calculator extends StatefulWidget {
@@ -35,61 +36,64 @@ class CalculatorState extends State<Calculator> {
       Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Expanded(
           flex: 2,
-          child: Column(
-            children: [
-              Row(children: [
-                buton('Shift', btnVisibility, fs, btnpading),
-                buton('Rad', btnVisibility, fs, btnpading),
-                buton(btnsText[0], btnVisibility, fs, btnpading),
-                buton(btnsText[1], btnVisibility, fs, btnpading),
-                buton(btnsText[2], btnVisibility, fs, btnpading),
-              ]),
-              Row(children: [
-                buton('^', btnVisibility, fs, btnpading),
-                buton('log', btnVisibility, fs, btnpading),
-                buton('ln', btnVisibility, fs, btnpading),
-                buton('(', btnVisibility, fs, btnpading),
-                buton(')', btnVisibility, fs, btnpading),
-              ]),
-              Row(children: [
-                buton('x \u00B2', btnVisibility, fs, btnpading),
-                buton('AC', true, fs, btnpading),
-                buton('C', true, fs, btnpading),
-                buton('%', true, fs, btnpading),
-                buton('\u00F7', true, fs, btnpading),
-              ]),
-              Row(children: [
-                buton('!', btnVisibility, fs, btnpading),
-                buton('7', true, fs, btnpading),
-                buton('8', true, fs, btnpading),
-                buton('9', true, fs, btnpading),
-                buton('\u00D7', true, fs, btnpading),
-              ]),
-              Row(children: [
-                buton('1/x', btnVisibility, fs, btnpading),
-                buton('4', true, fs, btnpading),
-                buton('5', true, fs, btnpading),
-                buton('6', true, fs, btnpading),
-                buton('-', true, fs, btnpading),
-              ]),
-              Row(children: [
-                buton('\u03C0', btnVisibility, fs, btnpading),
-                buton('1', true, fs, btnpading),
-                buton('2', true, fs, btnpading),
-                buton('3', true, fs, btnpading),
-                buton('+', true, fs, btnpading),
-              ]),
-              Row(children: [
-                buton('e', btnVisibility, fs, btnpading),
-                buton('\u221A', true, fs, btnpading),
-                buton('0', true, fs, btnpading),
-                buton('.', true, fs, btnpading),
-                buton('=', true, fs, btnpading),
-              ]),
-              // SizedBox(
-              // height: 39.0,
-              //)
-            ],
+          child: Container(
+            color: Colors.white70,
+            child: Column(
+              children: [
+                Row(children: [
+                  buton('Shift', btnVisibility, fs, btnpading),
+                  buton('Rad', btnVisibility, fs, btnpading),
+                  buton(btnsText[0], btnVisibility, fs, btnpading),
+                  buton(btnsText[1], btnVisibility, fs, btnpading),
+                  buton(btnsText[2], btnVisibility, fs, btnpading),
+                ]),
+                Row(children: [
+                  buton('^', btnVisibility, fs, btnpading),
+                  buton('log', btnVisibility, fs, btnpading),
+                  buton('ln', btnVisibility, fs, btnpading),
+                  buton('(', btnVisibility, fs, btnpading),
+                  buton(')', btnVisibility, fs, btnpading),
+                ]),
+                Row(children: [
+                  buton('x \u00B2', btnVisibility, fs, btnpading),
+                  buton('AC', true, fs, btnpading),
+                  buton('C', true, fs, btnpading),
+                  buton('%', true, fs, btnpading),
+                  buton('\u00F7', true, fs, btnpading),
+                ]),
+                Row(children: [
+                  buton('!', btnVisibility, fs, btnpading),
+                  buton('7', true, fs, btnpading),
+                  buton('8', true, fs, btnpading),
+                  buton('9', true, fs, btnpading),
+                  buton('\u00D7', true, fs, btnpading),
+                ]),
+                Row(children: [
+                  buton('1/x', btnVisibility, fs, btnpading),
+                  buton('4', true, fs, btnpading),
+                  buton('5', true, fs, btnpading),
+                  buton('6', true, fs, btnpading),
+                  buton('-', true, fs, btnpading),
+                ]),
+                Row(children: [
+                  buton('\u03C0', btnVisibility, fs, btnpading),
+                  buton('1', true, fs, btnpading),
+                  buton('2', true, fs, btnpading),
+                  buton('3', true, fs, btnpading),
+                  buton('+', true, fs, btnpading),
+                ]),
+                Row(children: [
+                  buton('e', btnVisibility, fs, btnpading),
+                  buton('\u221A', true, fs, btnpading),
+                  buton('0', true, fs, btnpading),
+                  buton('.', true, fs, btnpading),
+                  buton('=', true, fs, btnpading),
+                ]),
+                // SizedBox(
+                // height: 39.0,
+                //)
+              ],
+            ),
           ),
         ),
         Consumer<ListviewVisibility>(
@@ -277,7 +281,7 @@ class CalculatorState extends State<Calculator> {
 
   Widget buton(String btnText, bool isvisible, double fs, double btnpadding) {
     btnHandler() {
-      print('btnText');
+      //print('btnText');
       setState(() {
         int index = 0;
         switch (btnText) {
@@ -290,10 +294,11 @@ class CalculatorState extends State<Calculator> {
             displayNum = displayNum.substring(0, displayNum.length - 1);
             break;
           case '÷':
-            displayNum += '/';
+            displayNum += '÷';
+
             break;
           case '×':
-            displayNum += '*';
+            displayNum += '×';
             break;
           case '+':
             displayNum += '+';
@@ -319,21 +324,44 @@ class CalculatorState extends State<Calculator> {
           // break;
           default:
             displayNum = displayNum + btnText;
-
-            try {
-              displayResult = displayNum.interpret().toString();
-
-              //Parser P = Parser();
-
-              //Expression exp = P.parse(displayNum);
-              //ContextModel cm = ContextModel();
-              //String eval = exp.evaluate(EvaluationType.REAL, cm).toString();
-              //displayResult = displayNum.interpret();
-            } catch (e) {
-              //print(e);
-            }
-          //int index = 0;
         }
+        if (displayNum.length % 4 == 0
+            //displayNum.length == 8 ||
+            //displayNum.length == 10
+            ) {
+          //displayNum = displayNum + '$btnText,';
+          displayNum = displayNum.replaceAllMapped(
+              RegExp(r'[0-9](?=([0-9][0-9][0-9])+$)'), (match) => '${match[0]},');
+        } else {}
+
+//RegExp exp = RegExp( r'\d(?=(\d{3})+$)
+        //var z=bool.replaceAllMapped(exp,(match)=>'${match[0]},');
+
+        var a = displayNum.split('÷').join('/').split('×').join('*');
+        //displayNum = double.parse(displayNum).toLocale()
+
+        //if (displayNum.length == 4 ||
+        // displayNum.length == 7 ||
+        //displayNum.length == 10) {
+        //displayNum = displayNum.replaceAllMapped(
+        //RegExp(r'\d(?=(\d{3}))'), (match) => '${match[0]},');
+        //displayNum = ',$displayNum';
+        //}
+
+        try {
+          displayResult = a.interpret().toString();
+
+          //Parser P = Parser();
+
+          //Expression exp = P.parse(displayNum);
+          //ContextModel cm = ContextModel();
+          //String eval = exp.evaluate(EvaluationType.REAL, cm).toString();
+          //displayResult = displayNum.interpret();
+        } catch (e) {
+          //print(e);
+        }
+        //int index = 0;
+
         for (var item in UnitsList.listItem) {
           if (item.name == myController.text) {
             index = UnitsList.listItem.indexOf(item);

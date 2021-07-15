@@ -40,36 +40,41 @@ class DisplayScreen extends StatefulWidget {
 }
 
 class DisplayScreenState extends State<DisplayScreen> {
-  int iconNumber = 0;
+  //int iconNumber = 0;
   Icon icon2 = Icon(
     Icons.chevron_left,
     color: Colors.white,
   );
+  bool displayResultVisibility = true;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Column(mainAxisAlignment: MainAxisAlignment.end,
         // width: MediaQuery.of(context).size.width,
         // height: MediaQuery.of(context).size.height * 0.35,
-        //color: Colors.yellow,
+        //backgroundColor: Colors.yellow,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
                 flex: 14,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                            flex: 12,
-                            child: Text(
-                              widget.displayNum2,
-                              textAlign: TextAlign.end,
-                              style: TextStyle(fontSize: 20.0),
-                            )),
+                        Visibility(
+                          visible: unitsVisibility,
+                          child: Expanded(
+                              flex: 12,
+                              child: Text(
+                                widget.displayNum2,
+                                textAlign: TextAlign.end,
+                                style: TextStyle(fontSize: 20.0),
+                              )),
+                        ),
                         Visibility(
                           visible: unitsVisibility,
                           child: Expanded(
@@ -104,14 +109,14 @@ class DisplayScreenState extends State<DisplayScreen> {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
                             flex: 12,
                             child: Text(
                               widget.displayNum,
                               textAlign: TextAlign.end,
-                              style: TextStyle(fontSize: 30.0),
+                              style: TextStyle(fontSize: 35.0),
                             )),
                         Visibility(
                           visible: unitsVisibility,
@@ -119,10 +124,10 @@ class DisplayScreenState extends State<DisplayScreen> {
                               flex: 3,
                               child: TextField(
                                 // keyboardType: ,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp("[a-zA-z]"))
-                                ],
+                                //inputFormatters: [
+                                //FilteringTextInputFormatter.allow(
+                                // RegExp("[a-zA-z]"))
+                                //],
                                 controller: widget.myController,
                                 onTap: () {
                                   context
@@ -149,15 +154,19 @@ class DisplayScreenState extends State<DisplayScreen> {
                       ],
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Expanded(
-                            child: Text(
-                          widget.displayResult,
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            fontSize: 20.0,
-                          ),
-                        )),
+                        Visibility(
+                          visible: displayResultVisibility,
+                          child: Expanded(
+                              child: Text(
+                            widget.displayResult,
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                            ),
+                          )),
+                        ),
                       ],
                     ),
                   ],
@@ -168,8 +177,8 @@ class DisplayScreenState extends State<DisplayScreen> {
                 child: InkWell(
                   onTap: unitDisplay,
                   child: Container(
-                    height: 235,
-                    width: 5,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.width * 0.05,
                     // alignment: Alignment.topRight,
                     color: Colors.blueAccent,
                     child: Center(
@@ -194,23 +203,28 @@ class DisplayScreenState extends State<DisplayScreen> {
 
   bool unitsVisibility = false;
   unitDisplay() {
-    print(icon2 ==
-        Icon(
-          Icons.chevron_left,
-          color: Colors.white,
-        ));
+    //print(icon2 ==
+    //Icon(
+    // Icons.chevron_left,
+    //color: Colors.white,
+    //));
     setState(() {
-      if (iconNumber == 0) {
+      //unitsVisibility = !unitsVisibility;
+
+      if (unitsVisibility == false) {
+        unitsVisibility = true;
+        displayResultVisibility = false;
         icon2 = Icon(
-          Icons.chevron_left,
+          Icons.chevron_right,
           color: Colors.white,
         );
-        iconNumber = 1;
+        //iconNumber = 1;
       } else {
-        icon2 = Icon(Icons.chevron_right, color: Colors.white);
-        iconNumber = 0;
+        icon2 = Icon(Icons.chevron_left, color: Colors.white);
+        //iconNumber = 0;
+        unitsVisibility = false;
+        displayResultVisibility = true;
       }
-      unitsVisibility = !unitsVisibility;
       // CalculatorState.listViewVisibility = !CalculatorState.listViewVisibility;
     });
   }
