@@ -1,19 +1,13 @@
-import 'package:calcall/listviewvisibility.dart';
+import 'package:calcall/appState.dart';
 import 'package:flutter/material.dart';
 import 'Calculator.dart';
 import 'package:provider/provider.dart';
-import 'unitsList.dart';
-//import 'DisplayScreen.dart';
+import 'helper.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => ListviewVisibility(), child: MyApp()));
-
-  //UnitsList.listItem[1].calculate();
-  //print('f');
-  //CalculatorState().displayNum2 = 'fk';
- // print(CalculatorState().displayNum2);
- // print('rama is blue');
+  print(fact(9));
+  runApp(
+      ChangeNotifierProvider(create: (context) => AppState(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

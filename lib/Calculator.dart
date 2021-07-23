@@ -1,4 +1,6 @@
-import 'package:calcall/listviewvisibility.dart';
+import 'dart:math';
+
+import 'package:calcall/appState.dart';
 import 'package:calcall/unititem.dart';
 import 'package:calcall/unitsList.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,9 +9,8 @@ import 'package:provider/provider.dart';
 import 'DisplayScreen.dart';
 import 'package:function_tree/function_tree.dart';
 import 'package:calcall/unitsList2.dart';
-import 'package:intl/intl.dart';
+import 'package:calcall/helper.dart';
 
-//import 'main.dart';
 class Calculator extends StatefulWidget {
   @override
   CalculatorState createState() => CalculatorState();
@@ -22,12 +23,14 @@ class CalculatorState extends State<Calculator> {
       DisplayScreen(
         displayNum: displayNum,
         displayNum2: displayNum2,
+        // displayNum3: displayNum3,
+        //displayNum4: displayNum4,
         displayResult: displayResult,
         hideUnits: hideUnits,
-        searchList: searchList,
+        //searchList: searchList,
         icon1: icon1,
         sciButtonHandler: sciButtonHandler,
-        printLatestValue: printLatestValue,
+        // printLatestValue: printLatestValue,
         printText: printText,
         myController: myController,
         myController2: myController2,
@@ -35,9 +38,9 @@ class CalculatorState extends State<Calculator> {
       ),
       Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Expanded(
-          flex: 2,
+          flex: 3,
           child: Container(
-            color: Colors.white70,
+            color: Colors.grey[100],
             child: Column(
               children: [
                 Row(children: [
@@ -55,7 +58,7 @@ class CalculatorState extends State<Calculator> {
                   buton(')', btnVisibility, fs, btnpading),
                 ]),
                 Row(children: [
-                  buton('x \u00B2', btnVisibility, fs, btnpading),
+                  buton('x\u00B2', btnVisibility, fs, btnpading),
                   buton('AC', true, fs, btnpading),
                   buton('C', true, fs, btnpading),
                   buton('%', true, fs, btnpading),
@@ -96,16 +99,16 @@ class CalculatorState extends State<Calculator> {
             ),
           ),
         ),
-        Consumer<ListviewVisibility>(
-          builder: (context, ListviewVisibility, child) => Visibility(
-            visible: ListviewVisibility.listviewVisibility,
+        Consumer<AppState>(
+          builder: (context, listviewVisibility, child) => Visibility(
+            visible: listviewVisibility.listviewVisibility,
             child: Expanded(
                 flex: 2,
                 child: Container(
                     //color: Colors.amber,
                     margin: EdgeInsets.only(top: 0),
                     padding: EdgeInsets.only(top: 0),
-                    height: 300,
+                    height: MediaQuery.of(context).size.height * 0.5,
                     width: 180,
                     alignment: Alignment.topRight,
                     child: Expanded(
@@ -114,17 +117,17 @@ class CalculatorState extends State<Calculator> {
                     ))),
           ),
         ),
-        Consumer<ListviewVisibility>(
-          builder: (context, ListviewVisibility, child) => Visibility(
-            visible: ListviewVisibility.listviewVisibility2,
+        Consumer<AppState>(
+          builder: (context, listviewVisibility, child) => Visibility(
+            visible: listviewVisibility.listviewVisibility2,
             child: Expanded(
                 flex: 2,
                 child: Container(
-                    //color: Colors.amber,
+                    color: Colors.white,
                     margin: EdgeInsets.only(top: 0),
                     padding: EdgeInsets.only(top: 0),
-                    height: 300,
-                    width: 300,
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    width: 180,
                     alignment: Alignment.topRight,
                     child: Expanded(
                       child: UnitsList2(
@@ -136,153 +139,101 @@ class CalculatorState extends State<Calculator> {
     ]);
   }
 
-  //bool listViewVisibility = false;
   static final TextEditingController myController = TextEditingController();
   static final TextEditingController myController2 = TextEditingController();
   bool unitsVisibility = false;
   bool btnVisibility = false;
   // static bool listViewVisibility = false;
-  double fs = 25.0;
+  double fs = 26;
   double btnpading = 16.0;
   List<String> btnsText = [
     'sin',
     'cos',
     'tan',
   ];
-  Icon icon1 = Icon(Icons.expand_more);
-  static String displayNum = '';
-
+  Icon icon1 = Icon(
+    Icons.expand_more,
+    color: Colors.white,
+  );
+  //static String displayNum4 = '';
+  //static String displayNum3 = '';
   static String displayNum2 = '';
-
+  static String displayNum = '';
   static String displayResult = '';
 
-  static List<UnitItem> searchedListitem = UnitsList.listItem;
-  static List<UnitItem> searchedListitem2 = UnitsList2.listItem;
-
-  // int index = 1;
-  printLatestValue() {
-    print(myController.text);
-    //if (DisplayScreenState().myController.text == '') {
-    //searchedListitem = UnitsList.listItem;
-    //} else //{
-    setState(() {
-      //print('objecting');
-      try {
-        searchedListitem = UnitsList.listItem
-            .where((element) =>
-                element.name.contains(myController.text.toString()))
-            .toList();
-      } catch (e) {
-        print(e);
-      }
-    });
-    //}
-    print('${myController.text}');
-  }
+  static List<UnitItem> searchedListitem = UnitsList.listItem
+      .where((element) => !element.name.contains('%'))
+      .toList();
+  static List<UnitItem> searchedListitem2 = UnitsList2.listItem
+      .where((element) => !element.name.contains('GST'))
+      .toList();
 
   void printText(text) {
     setState(() {
-      print(text);
+      // print(text);
       searchedListitem = UnitsList.listItem
-          .where((element) => element.name
-              .toLowerCase()
-              .contains(text.toString().toLowerCase()))
+          .where((element) =>
+              element.name
+                  .toLowerCase()
+                  .contains(text.toString().toLowerCase()) &&
+              !element.name.contains('Tax'))
           .toList();
     });
   }
 
   showUnit2() {
-    //context.read<ListviewVisibility>().showListView2();
-
-    //print('something');
-    //print('${UnitsList.listItem[1].type}...true');
     setState(() {
-      //var obj = UnitsList.listItem
-      //.firstWhere((element) => element.name == myController.text);
-      // print(obj.name);
-      //var i = 0;
       for (var i = 0; i < UnitsList.listItem.length; i++) {
         if (UnitsList.listItem[i].name == myController.text) {
-          print(i);
+          //print(i);
           searchedListitem2 = UnitsList2.listItem
-              .where((element) => element.type == UnitsList.listItem[i].type)
+              .where((element) =>
+                  element.type == UnitsList.listItem[i].type &&
+                  !element.name.contains('GST'))
               .toList();
-
-          //return i;
         }
-        //print(i);
       }
-      //searchedListitem = UnitsList.listItem
-      //.where((element) => element.type == UnitsList.listItem[i].type)
-      //.toList();
-      // print('$i  printing');
-      // print(searchedListitem[i].type);
       print('${myController.text}...works');
-      // ListviewVisibility = true;
-      //.toLowerCase()
-      //.contains(text.toString().toLowerCase()))
-      //.toList();
     });
   }
 
   hideUnits() {
-    setState(() {
-      //listViewVisibility = true;
-    });
-    // print('text');
+    setState(() {});
   }
 
   sciButtonHandler() {
     setState(() {
       if (btnVisibility) {
         btnVisibility = !btnVisibility;
-        fs = 25.0;
-        btnpading = 16;
-        icon1 = Icon(Icons.expand_more);
+        fs = 26.0;
+        btnpading = 17;
+        icon1 = Icon(
+          Icons.expand_more,
+          color: Colors.white,
+        );
       } else {
         btnVisibility = !btnVisibility;
-        fs = 14.0;
-        btnpading = 16;
+        fs = 16.0;
+        btnpading = 14;
 
-        icon1 = Icon(Icons.expand_less);
+        icon1 = Icon(
+          Icons.expand_less,
+          color: Colors.white,
+        );
       }
     });
-    //print('ingfnk');
   }
 
-  searchList() {
-    try {
-      setState(() {
-        print('objecting');
-        searchedListitem = UnitsList.listItem
-            .where((element) => element.name.contains('m'))
-            .toList();
-      });
-
-      print(searchedListitem);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  addUnitTotextfield() {
-    // print('new ${myController.text.toString()}');
-    //print(searchedListitem[index].name);
-    //print(index);
-    // myController.text = '9999';
-    //print(myController.text);
-  }
+  addUnitTotextfield() {}
 
   hideListView() {
-    setState(() {
-      //listViewVisibility = false;
-    });
+    setState(() {});
   }
 
   Widget buton(String btnText, bool isvisible, double fs, double btnpadding) {
     btnHandler() {
-      //print('btnText');
       setState(() {
+        context.read<AppState>().hidelistview();
         int index = 0;
         switch (btnText) {
           case 'AC':
@@ -316,80 +267,105 @@ class CalculatorState extends State<Calculator> {
 
             break;
           case '=':
-            displayNum = displayResult;
+            displayNum = displayResult.split('=').join('');
             break;
-          // case 'Sin':
-          //displayNum = displayNum + 'Sin(';
-          // displayNum += '(';
-          // break;
+          case 'x²':
+            displayNum += '^2';
+            break;
+          case '1/x':
+            displayNum = '1/$displayNum';
+            break;
+          case 'π':
+            displayNum = '3.141';
+            break;
+          //case '!':
+          //displayNum += ' $btnText';
+          //displayResult = double.parse(displayNum).toString();
+          //break;
+
+          case '%':
+            displayNum += '/100';
+            //displayResult = double.parse(displayNum).toString();
+            break;
+
+          //case '√':
+
+          //displayNum += '^0.5';
+          //displayResult = sqrt(double.parse(displayNum)).toString();
+          //break;
+
           default:
-            displayNum = displayNum + btnText;
+            if (btnText.contains(RegExp(r'[sctl]'))) {
+              displayNum = displayNum + '$btnText(';
+            } else {
+              displayNum = displayNum + btnText;
+            }
         }
-        if (displayNum.length % 4 == 0
-            //displayNum.length == 8 ||
-            //displayNum.length == 10
-            ) {
-          //displayNum = displayNum + '$btnText,';
+        if (!displayNum.contains(RegExp(r'[.+-]'))) {
+          displayNum = displayNum.replaceAll(',', '');
+          print(displayNum);
           displayNum = displayNum.replaceAllMapped(
-              RegExp(r'[0-9](?=([0-9][0-9][0-9])+$)'), (match) => '${match[0]},');
+              RegExp(r'\d(?=(\d{3})+$)'), (match) => '${match[0]},');
         } else {}
 
-//RegExp exp = RegExp( r'\d(?=(\d{3})+$)
-        //var z=bool.replaceAllMapped(exp,(match)=>'${match[0]},');
-
-        var a = displayNum.split('÷').join('/').split('×').join('*');
-        //displayNum = double.parse(displayNum).toLocale()
-
-        //if (displayNum.length == 4 ||
-        // displayNum.length == 7 ||
-        //displayNum.length == 10) {
-        //displayNum = displayNum.replaceAllMapped(
-        //RegExp(r'\d(?=(\d{3}))'), (match) => '${match[0]},');
-        //displayNum = ',$displayNum';
-        //}
+        var a = displayNum
+            .split('÷')
+            .join('/')
+            .split('×')
+            .join('*')
+            .split(',')
+            .join('');
+        //a = a.replaceAllMapped('√', (match) =>
+        // null)
 
         try {
-          displayResult = a.interpret().toString();
-
-          //Parser P = Parser();
-
-          //Expression exp = P.parse(displayNum);
-          //ContextModel cm = ContextModel();
-          //String eval = exp.evaluate(EvaluationType.REAL, cm).toString();
-          //displayResult = displayNum.interpret();
-        } catch (e) {
-          //print(e);
-        }
-        //int index = 0;
+          displayResult = '=${a.interpret().toString()}';
+          if (a.contains('√')) {
+            a = a.split('√').join('') + '^0.5';
+            displayResult = a.interpret().toString();
+          }
+          if (a.contains('log')) {
+            a += '/2.302585';
+            //a = a.split('√').join('') + '^0.5';
+            displayResult = a.interpret().toString();
+          }
+          if (a.contains('!')) {
+            a = a.split('!').join('');
+            print(a);
+            displayResult = (fact(double.parse(a))).toString();
+            // a += '/2.302585';
+            //a = a.split('√').join('') + '^0.5';
+            //var
+            //displayResult = a.interpret().toString();
+          }
+        } catch (e) {}
 
         for (var item in UnitsList.listItem) {
           if (item.name == myController.text) {
             index = UnitsList.listItem.indexOf(item);
           }
-          //UnitsList.listItem[0].calculate();
         }
         if (displayResult != '') {
           displayNum2 = UnitsList.listItem[index].calculate();
         }
       });
-      // print(DisplayScreen().displayNum);
-      //DisplayScreenState.displayNum += no;
+      print(myController.text.trim() == 'GST');
+      if (myController.text.trim() == "GST") {
+        print('true gst');
+        context.read<AppState>().gst();
+        print(AppState().displayNum3);
+      }
     }
 
     return Visibility(
       visible: isvisible,
       child: Expanded(
         child: OutlinedButton(
-          // padding: EdgeInsets.all(25.0),
-
           style: OutlinedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: btnpading),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0))),
-          //backgroundColor: Colors.grey, ),
-
           onPressed: btnHandler,
-
           child: Text(btnText,
               style: TextStyle(fontSize: fs, color: Colors.black54)),
         ),

@@ -1,5 +1,5 @@
 //import 'package:calcall/DisplayScreen.dart';
-import 'package:calcall/listviewvisibility.dart';
+import 'package:calcall/appState.dart';
 import 'package:calcall/unitsList.dart';
 import 'package:flutter/material.dart';
 import 'unititem.dart';
@@ -11,6 +11,7 @@ class UnitsList2 extends StatefulWidget {
   //Function searchList;
   final List<UnitItem> searchedListitem2;
   final Function addUnitToTextfield;
+
   final Function hideListview;
   UnitsList2(
       this.searchedListitem2, this.addUnitToTextfield, this.hideListview);
@@ -34,21 +35,27 @@ class _UnitsList2State extends State<UnitsList2> {
         return ListTile(
           dense: true,
           horizontalTitleGap: 1,
-          tileColor: Colors.blueAccent,
+          // tileColor: Colors.black54,
           enabled: true,
           //selected: true,
           onTap: () {
-            context.read<ListviewVisibility>().hidelistview2();
+            context.read<AppState>().hidelistview2();
 
             setState(() {
               CalculatorState.myController2.text =
                   widget.searchedListitem2[index].name;
+
               //print(widget.searchedListitem[index].name);
               //print(CalculatorState.myController.text);
               // widget.hideListView();
               //CalculatorState.listViewVisibility = false;
-              print(CalculatorState.myController2.text);
+              //print(CalculatorState.myController2.text);
             });
+
+            if (CalculatorState.myController2.text.contains('Tax')) {
+              context.read<AppState>().gstListTileHandler();
+            }
+            
 
             // print(Calculator.listViewVisibility);
           },
@@ -63,7 +70,7 @@ class _UnitsList2State extends State<UnitsList2> {
           //},
           title: Text(
             '${widget.searchedListitem2[index].name}',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(fontSize: 18, color: Colors.black54),
           ),
           leading: widget.searchedListitem2[index].icon,
         );

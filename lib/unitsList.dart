@@ -1,6 +1,7 @@
 //import 'package:calcall/DisplayScreen.dart';
+//import 'package:calcall/DisplayScreen.dart';
 import 'package:calcall/helper.dart';
-import 'package:calcall/listviewvisibility.dart';
+import 'package:calcall/appState.dart';
 import 'package:flutter/material.dart';
 import 'unititem.dart';
 //import 'DisplayScreen.dart';
@@ -27,7 +28,7 @@ class UnitsList extends StatefulWidget {
         ),
         'Length',
         meter),
-    UnitItem('Centimeter', Icon(Icons.straighten), 'Length', centimeter),
+    UnitItem('Cm', Icon(Icons.straighten), 'Length', centimeter),
     UnitItem('Feet', Icon(Icons.straighten), 'Length', meter),
     UnitItem('Inch', Icon(Icons.straighten), 'Length', inch),
     UnitItem('Yard', Icon(Icons.straighten), 'Length', meter),
@@ -41,55 +42,57 @@ class UnitsList extends StatefulWidget {
     UnitItem('m/sec\u00B2', Icon(Icons.trending_up), 'acceleration', msqsecond),
     UnitItem(
         'cm/sec\u00B2', Icon(Icons.trending_up), 'acceleration', cmsqsecond),
-    UnitItem('feet/sec\u00B2', Icon(Icons.trending_up), 'acceleration', ftsqsecond),
-    UnitItem('inch/sec\u00B2', Icon(Icons.trending_up), 'acceleration', inchsqsecond),
+    UnitItem(
+        'feet/sec\u00B2', Icon(Icons.trending_up), 'acceleration', ftsqsecond),
+    UnitItem('inch/sec\u00B2', Icon(Icons.trending_up), 'acceleration',
+        inchsqsecond),
     UnitItem('m\u00B3', Icon(Icons.view_in_ar_outlined), 'volume', mcube),
     UnitItem('cm\u00B3', Icon(Icons.view_in_ar_outlined), 'volume', cmcube),
     UnitItem('inch\u00B3', Icon(Icons.view_in_ar_outlined), 'volume', inchcube),
     UnitItem('liters', Icon(Icons.view_in_ar_outlined), 'volume', liters),
     UnitItem('gallon', Icon(Icons.view_in_ar_outlined), 'volume', gallon),
     UnitItem('kg/m\u00B3', Icon(Icons.opacity), 'density', kgmetercube),
-    UnitItem('lb/ft\u00B3', Icon(Icons.opacity), 'density', meter),
-    UnitItem('lb/inch\u00B3', Icon(Icons.opacity), 'density', meter),
-    UnitItem('g/cc', Icon(Icons.opacity), 'density', meter),
-    UnitItem('m\u00B2', Icon(Icons.view_comfy), 'area', meter),
-    UnitItem('cm\u00B2', Icon(Icons.view_comfy), 'area', meter),
-    UnitItem('inch\u00B2', Icon(Icons.view_comfy), 'area', meter),
-    UnitItem('feet\u00B2', Icon(Icons.view_comfy), 'area', meter),
-    UnitItem('Acre', Icon(Icons.view_comfy), 'area', meter),
-    UnitItem('Hectare', Icon(Icons.view_comfy), 'area', meter),
-    UnitItem('Bigha', Icon(Icons.view_comfy), 'area', meter),
-    UnitItem('Kanda', Icon(Icons.view_comfy), 'area', meter),
-    UnitItem('m/sec', Icon(Icons.speed), 'speed', meter),
-    UnitItem('feett/sec', Icon(Icons.speed), 'speed', meter),
-    UnitItem('km/hr', Icon(Icons.speed), 'speed', meter),
-    UnitItem('Newton', Icon(Icons.compress), 'force', meter),
-    UnitItem('kgf', Icon(Icons.compress), 'force', meter),
-    UnitItem('dyne', Icon(Icons.compress), 'force', meter),
-    UnitItem('J(Joule)', Icon(Icons.autorenew), 'work', meter),
-    UnitItem('kJ', Icon(Icons.autorenew), 'work', meter),
-    UnitItem('btu)', Icon(Icons.autorenew), 'work', meter),
-    UnitItem('kwH', Icon(Icons.autorenew), 'work', meter),
-    UnitItem('eV', Icon(Icons.autorenew), 'work', meter),
-    UnitItem('HP', Icon(Icons.power_settings_new), 'power', meter),
-    UnitItem('HP', Icon(Icons.power_settings_new), 'power', meter),
-    UnitItem('kW', Icon(Icons.power_settings_new), 'power', meter),
-    UnitItem('W', Icon(Icons.power_settings_new), 'power', meter),
-    UnitItem('psi', Icon(Icons.expand), 'pressure', meter),
-    UnitItem('kPa', Icon(Icons.expand), 'pressure', meter),
-    UnitItem('atm', Icon(Icons.expand), 'pressure', meter),
-    UnitItem('bar', Icon(Icons.expand), 'pressure', meter),
-    UnitItem('mmHg', Icon(Icons.expand), 'pressure', meter),
-    UnitItem('inchHg', Icon(Icons.expand), 'pressure', meter),
-    UnitItem('mmH\u2082\O', Icon(Icons.expand), 'pressure', meter),
-    UnitItem('kg/cm\u00B2', Icon(Icons.expand), 'pressure', meter),
-    UnitItem('\u2070\C', Icon(Icons.thermostat), 'temperature', meter),
-    UnitItem('\u2070\F', Icon(Icons.thermostat), 'temperature', meter),
-    UnitItem('\u2070\K', Icon(Icons.thermostat), 'temperature', meter),
-    UnitItem('GST 28%', Icon(Icons.account_balance), 'tax', meter),
-    UnitItem('GST 18%', Icon(Icons.account_balance), 'tax', meter),
-    UnitItem('GST 12%', Icon(Icons.account_balance), 'tax', meter),
-    UnitItem('GST 5%', Icon(Icons.account_balance), 'tax', meter),
+    UnitItem('lb/ft\u00B3', Icon(Icons.opacity), 'density', lbftcube),
+    UnitItem('lb/inch\u00B3', Icon(Icons.opacity), 'density', lbinchcube),
+    UnitItem('g/cc', Icon(Icons.opacity), 'density', gpercc),
+    UnitItem('m\u00B2', Icon(Icons.crop_din), 'area', metersqure),
+    UnitItem('cm\u00B2', Icon(Icons.crop_din), 'area', cmsqure),
+    UnitItem('inch\u00B2', Icon(Icons.crop_din), 'area', inchsqure),
+    UnitItem('feet\u00B2', Icon(Icons.crop_din), 'area', feetsqure),
+    UnitItem('Acre', Icon(Icons.crop_din), 'area', acre),
+    UnitItem('Hectare', Icon(Icons.crop_din), 'area', hectare),
+    UnitItem('Bigha', Icon(Icons.crop_din), 'area', bigha),
+    UnitItem('Kanda', Icon(Icons.crop_din), 'area', kanda),
+    UnitItem('m/sec', Icon(Icons.speed), 'speed', mpersec),
+    UnitItem('feet/sec', Icon(Icons.speed), 'speed', feetpersec),
+    UnitItem('km/hr', Icon(Icons.speed), 'speed', kmperhr),
+    UnitItem('Newton', Icon(Icons.compress), 'force', newton),
+    UnitItem('kgf', Icon(Icons.compress), 'force', kgf),
+    UnitItem('dyne', Icon(Icons.compress), 'force', dyne),
+    UnitItem('J(Joule)', Icon(Icons.autorenew), 'work', joule),
+    UnitItem('kJ', Icon(Icons.autorenew), 'work', kJ),
+    UnitItem('btu', Icon(Icons.autorenew), 'work', btu),
+    UnitItem('kWh', Icon(Icons.autorenew), 'work', kwH),
+    UnitItem('eV', Icon(Icons.autorenew), 'work', eV),
+    UnitItem('HP', Icon(Icons.power_settings_new), 'power', hp),
+    UnitItem('kW', Icon(Icons.power_settings_new), 'power', kW),
+    UnitItem('W', Icon(Icons.power_settings_new), 'power', watt),
+    UnitItem('psi', Icon(Icons.expand), 'pressure', psi),
+    UnitItem('kPa', Icon(Icons.expand), 'pressure', kPa),
+    UnitItem('atm', Icon(Icons.expand), 'pressure', atm),
+    UnitItem('bar', Icon(Icons.expand), 'pressure', bar),
+    UnitItem('mmHg', Icon(Icons.expand), 'pressure', mmHg),
+    UnitItem('inchHg', Icon(Icons.expand), 'pressure', inchHg),
+    UnitItem('mmH\u2082\O', Icon(Icons.expand), 'pressure', mmh20),
+    UnitItem('kg/cm\u00B2', Icon(Icons.expand), 'pressure', kgcmsqure),
+    UnitItem('\u2070\C', Icon(Icons.thermostat), 'temperature', centigrade),
+    UnitItem('\u2070\F', Icon(Icons.thermostat), 'temperature', faranheight),
+    UnitItem('\u2070\K', Icon(Icons.thermostat), 'temperature', kelvin),
+    UnitItem('GST ', Icon(Icons.account_balance), 'tax', gst),
+    UnitItem('Tax 28%', Icon(Icons.account_balance), 'tax', gst),
+    UnitItem('Tax 18%', Icon(Icons.account_balance), 'tax', gst),
+    UnitItem('Tax 12%', Icon(Icons.account_balance), 'tax', gst),
+    UnitItem('Tax 5%', Icon(Icons.account_balance), 'tax', gst),
   ];
 
   //static List<UnitItem> searchedListitem = listItem;
@@ -105,32 +108,23 @@ class _UnitsListState extends State<UnitsList> {
         return ListTile(
           dense: true,
           horizontalTitleGap: 1,
-          //tileColor: Colors.blueAccent,
+          //tileColor: Colors.black54,
           enabled: true,
           //selected: true,
           onTap: () {
-            context.read<ListviewVisibility>().hidelistview();
+            context.read<AppState>().hidelistview();
+            context.read<AppState>().hideGst();
+            //context.read<AppState>().gstListTileHandler();
 
             setState(() {
               CalculatorState.myController.text =
                   widget.searchedListitem[index].name;
-              print(CalculatorState.myController.text);
             });
-
-            // print(Calculator.listViewVisibility);
           },
-          //() {
-          // print(DisplayScreenState().myController.text);
-          // },
 
-          //DisplayScreenState().myController.text = 'huuuu';
-          //print(DisplayScreenState().myController.text);
-
-          //print('new ${DisplayScreenState().myController.text}');
-          //},
           title: Text(
             '${widget.searchedListitem[index].name}',
-            style: TextStyle(color: Colors.black54),
+            style: TextStyle(color: Colors.black54, fontSize: 18),
           ),
           leading: widget.searchedListitem[index].icon,
         );
