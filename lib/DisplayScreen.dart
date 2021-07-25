@@ -65,34 +65,42 @@ class DisplayScreenState extends State<DisplayScreen> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     //Total display
-                    Consumer<AppState>(
-                      builder: (context, total, child) => Visibility(
-                        visible: total.cgstVisibility,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Expanded(
-                                flex: 12,
-                                child: Text(
-                                  total.displayNum4,
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(fontSize: 25.0),
-                                )),
-                            Expanded(
-                                flex: 4,
-                                child: TextField(
-                                  style: TextStyle(fontSize: 18),
-                                  textAlign: TextAlign.end,
-                                  textAlignVertical: TextAlignVertical.top,
-                                  readOnly: true,
-                                  controller: total.total,
-                                  onTap: () {},
-                                  decoration: InputDecoration(
-                                      //hintText: 'CGST/IGST',
-                                      border: InputBorder.none),
-                                )),
-                            //Expanded(flex: 1, child: Icon(Icons.arrow_downward))
-                          ],
+                    Container(
+                      margin: EdgeInsets.only(bottom: 0),
+                      color: Colors.grey[100],
+                      child: Consumer<AppState>(
+                        builder: (context, total, child) => Visibility(
+                          visible: total.cgstVisibility,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                  flex: 8,
+                                  child: Text(
+                                    total.displayNum4,
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 25.0),
+                                  )),
+                              Expanded(
+                                  flex: 4,
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 18),
+                                    textAlign: TextAlign.center,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    readOnly: true,
+                                    controller: total.total,
+                                    onTap: () {},
+                                    decoration: InputDecoration(
+                                        //hintText: 'CGST/IGST',
+                                        border: InputBorder.none),
+                                  )),
+                              Expanded(
+                                  flex: 1, child: Icon(Icons.book_outlined))
+
+                              //Expanded(flex: 1, child: Icon(Icons.arrow_downward))
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -107,10 +115,11 @@ class DisplayScreenState extends State<DisplayScreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Expanded(
-                                flex: 12,
+                                flex: 8,
                                 child: Text(
                                   cgs.displayNum3,
-                                  textAlign: TextAlign.end,
+                                  maxLines: 1,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(fontSize: 25.0),
                                 )),
                             Expanded(
@@ -118,7 +127,7 @@ class DisplayScreenState extends State<DisplayScreen> {
                                 child: TextField(
                                   style: TextStyle(fontSize: 18),
                                   textAlign: TextAlign.end,
-                                  textAlignVertical: TextAlignVertical.top,
+                                  textAlignVertical: TextAlignVertical.center,
                                   readOnly: true,
                                   controller: cgs.cgst,
                                   onTap: () {},
@@ -126,107 +135,107 @@ class DisplayScreenState extends State<DisplayScreen> {
                                       //hintText: 'CGST/IGST',
                                       border: InputBorder.none),
                                 )),
+                            Expanded(flex: 1, child: Icon(Icons.book_outlined))
+
                             //Expanded(flex: 1, child: Icon(Icons.arrow_downward))
                           ],
                         ),
                       ),
                     ),
-                    Consumer<AppState>(
-                      //displayNum2
-                      builder: (context, unitrow, child) => Visibility(
-                        visible: unitrow.unit2Visibility,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Expanded(
-                                flex: 14,
-                                child: Text(
-                                  widget.displayNum2,
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(fontSize: 25.0),
-                                )),
-                            Expanded(
-                                flex: 3,
-                                child: TextField(
-                                  style: TextStyle(fontSize: 18),
-                                  textAlign: TextAlign.end,
-                                  textAlignVertical: TextAlignVertical.top,
-                                  readOnly: true,
-                                  controller: widget.myController2,
-                                  onTap: () {
-                                    widget.showUnit2();
-                                    context.read<AppState>().showListView2();
-                                    context.read<AppState>().hidelistview();
-                                  },
-
-                                  //onChanged: widget.searchList,
-                                  //onChanged: printLatestValue,
-
-                                  //onChanged: widget.printText,
-                                  //keyboardType:
-                                  //keyboardType:
-                                  //onTap: widget.unitshandler,
-                                  decoration: InputDecoration(
-                                      hintText: 'Unit2',
-                                      border: InputBorder.none),
-                                )),
-                            Expanded(flex: 1, child: Icon(Icons.arrow_downward))
-                          ],
+                    Container(
+                      color: Colors.grey[100],
+                      child: Consumer<AppState>(
+                        //displayNum2
+                        builder: (context, unitrow, child) => Visibility(
+                          visible: unitrow.unit2Visibility,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                  flex: 8,
+                                  child: Text(
+                                    widget.displayNum2,
+                                    maxLines: 1,
+                                    textAlign: unitrow.noAlignment,
+                                    style: TextStyle(fontSize: 25.0),
+                                  )),
+                              Expanded(
+                                  flex: 4,
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 18),
+                                    textAlign: TextAlign.center,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    readOnly: true,
+                                    controller: widget.myController2,
+                                    onTap: () {
+                                      widget.showUnit2();
+                                      context.read<AppState>().showListView2();
+                                      context.read<AppState>().hidelistview();
+                                    },
+                                    decoration: InputDecoration(
+                                        hintText: 'Unit2',
+                                        border: InputBorder.none),
+                                  )),
+                              Expanded(
+                                  flex: 1, child: Icon(Icons.arrow_downward))
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Expanded(
-                            flex: 14,
+                    Consumer<AppState>(
+                      builder: (context, unit1row, child) => Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            flex: 8,
                             child: Text(
                               widget.displayNum,
                               maxLines: 1,
-                              textAlign: TextAlign.end,
+                              textAlign: unit1row.noAlignment,
                               style: TextStyle(
-                                fontSize: 45.0,
-                                fontWeight: FontWeight.w400,
+                                fontSize: unit1row.fsDisplayNum,
+                                fontWeight: FontWeight.w300,
                               ),
-                            )),
-                        Consumer<AppState>(
-                          builder: (context, unit1, child) => Visibility(
-                            visible: unit1.unit1Visibility,
-                            child: Expanded(
-                                flex: 3,
-                                child: TextField(
-                                  // keyboardType: ,
-                                  //inputFormatters: [
-                                  //FilteringTextInputFormatter.allow(
-                                  // RegExp("[a-zA-z]"))
-                                  //]
-
-                                  textAlign: TextAlign.end,
-                                  //textAlignVertical: TextAlignVertical.bottom,
-                                  controller: widget.myController,
-                                  onTap: () {
-                                    context.read<AppState>().showListView();
-                                    context.read<AppState>().hidelistview2();
-                                  },
-
-                                  onChanged: widget.printText,
-                                  //keyboardType:
-                                  //keyboardType:
-                                  //onTap: widget.unitshandler,
-                                  decoration: InputDecoration(
-                                      hintText: 'Unit1',
-                                      border: InputBorder.none),
-                                  style: TextStyle(fontSize: 18),
-                                )),
+                            ),
                           ),
-                        ),
-                        Consumer<AppState>(
-                          builder: (context, searchicon, child) => Visibility(
-                              visible: searchicon.unit1Visibility,
-                              child:
-                                  Expanded(flex: 1, child: Icon(Icons.search))),
-                        )
-                      ],
+                          Consumer<AppState>(
+                            builder: (context, unit1, child) => Visibility(
+                              visible: unit1.unit1Visibility,
+                              child: Expanded(
+                                  flex: 4,
+                                  child: TextField(
+                                    // keyboardType: ,
+                                    //inputFormatters: [
+                                    //FilteringTextInputFormatter.allow(
+                                    // RegExp("[a-zA-z]"))
+                                    //]
+
+                                    textAlign: TextAlign.center,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    controller: widget.myController,
+                                    onTap: () {
+                                      context.read<AppState>().showListView();
+                                      context.read<AppState>().hidelistview2();
+                                    },
+
+                                    onChanged: widget.printText,
+
+                                    decoration: InputDecoration(
+                                        hintText: 'Unit1',
+                                        border: InputBorder.none),
+                                    style: TextStyle(fontSize: 19),
+                                  )),
+                            ),
+                          ),
+                          Consumer<AppState>(
+                            builder: (context, searchicon, child) => Visibility(
+                                visible: searchicon.unit1Visibility,
+                                child: Expanded(
+                                    flex: 1, child: Icon(Icons.search))),
+                          )
+                        ],
+                      ),
                     ),
                     Visibility(
                         visible: true,

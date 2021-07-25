@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 
 import 'Calculator.dart';
 
@@ -8,88 +8,82 @@ meter() {
       case 'Meter':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) * 1;
-        return z.toStringAsFixed(3);
-      //return double.parse((CalculatorState.displayResult) * 1000)
-      //.toStringAsFixed(3);
-      case 'Centimeter':
+        return z.toStringAsFixed(2);
+      case 'cm':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 1000;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
       case 'Inch':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 39.3701;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
       case 'Feet':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 3.28084;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
       case 'Yard':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 1.09361;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Miles':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 0.000621371;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       default:
-        //CalculatorState.displayNum2 = 'incorrect unit';
-        return 'incorrect units';
+        return '';
     }
-    //CalculatorState().displayNum2 = "n777777777";
-    //print(CalculatorState().displayNum2);
   } catch (e) {
     print(e);
   }
 }
 
-centimeter() {
+cm() {
   try {
     switch (CalculatorState.myController2.text) {
       case 'Meter':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) /
                 100;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
-      case 'Centimeter':
+      case 'cm':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) * 1;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Inch':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 0.393701;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Feet':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 0.0328084;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Yard':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 0.0109361;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Miles':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 6.2137e-6;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       default:
-        //CalculatorState.displayNum2 = 'incorrect unit';
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -101,40 +95,39 @@ inch() {
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 0.0254;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
-      case 'Centimeter':
+      case 'cm':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 2.54;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Inch':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) * 1;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Feet':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 0.0833333;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Yard':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 0.0277778;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Miles':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 1.5783e-5;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       default:
-        //CalculatorState.displayNum2 = 'incorrect unit';
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -149,13 +142,13 @@ feet() {
                 .split('=')
                 .join('')) *
             0.3048;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
-      case 'Centimeter':
+      case 'cm':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 30.48;
-        return z.toStringAsFixed(3);
+        return z.toStringAsFixed(2);
 
       case 'Inch':
         var z =
@@ -181,8 +174,7 @@ feet() {
         return z.toStringAsFixed(3);
 
       default:
-        //CalculatorState.displayNum2 = 'incorrect unit';
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -196,7 +188,7 @@ yard() {
                 0.9144;
         return z.toStringAsFixed(3);
 
-      case 'Centimeter':
+      case 'cm':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 91.44;
@@ -225,8 +217,7 @@ yard() {
         return z.toStringAsFixed(3);
 
       default:
-        //CalculatorState.displayNum2 = 'incorrect unit';
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -240,7 +231,7 @@ mile() {
                 1609.34;
         return z.toStringAsFixed(3);
 
-      case 'Centimeter':
+      case 'cm':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 160934;
@@ -271,7 +262,7 @@ mile() {
 
       default:
         //CalculatorState.displayNum2 = 'incorrect unit';
-        return 'Units??';
+        return '';
     }
   } catch (e) {}
 }
@@ -316,7 +307,7 @@ kg() {
       //
       default:
         //CalculatorState.displayNum2 = 'incorrect unit';
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -354,7 +345,7 @@ ton() {
                 2204.62;
         return z.toStringAsFixed(3);
       default:
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -392,7 +383,7 @@ mg() {
                 2.2046e-6;
         return z.toStringAsFixed(3);
       default:
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -430,7 +421,7 @@ gram() {
                 0.00220462;
         return z.toStringAsFixed(3);
       default:
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -468,7 +459,7 @@ quintal() {
                 220.462;
         return z.toStringAsFixed(3);
       default:
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }
@@ -507,7 +498,7 @@ pound() {
                 220.462;
         return z.toStringAsFixed(3);
       default:
-        return 'incorrect units';
+        return '';
     }
   } catch (e) {}
 }

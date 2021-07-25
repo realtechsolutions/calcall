@@ -19,7 +19,8 @@ class Calculator extends StatefulWidget {
 class CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+    return Column(//mainAxisAlignment: MainAxisAlignment.start,
+        children: [
       DisplayScreen(
         displayNum: displayNum,
         displayNum2: displayNum2,
@@ -40,57 +41,89 @@ class CalculatorState extends State<Calculator> {
         Expanded(
           flex: 3,
           child: Container(
-            color: Colors.grey[100],
+            margin: EdgeInsets.only(top: 0),
+            //color: Colors.grey[100],
             child: Column(
               children: [
                 Row(children: [
-                  buton('Shift', btnVisibility, fs, btnpading),
-                  buton('Rad', btnVisibility, fs, btnpading),
-                  buton(btnsText[0], btnVisibility, fs, btnpading),
-                  buton(btnsText[1], btnVisibility, fs, btnpading),
-                  buton(btnsText[2], btnVisibility, fs, btnpading),
+                  buton('Shift', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton('Rad', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton(btnsText[0], btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton(btnsText[1], btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton(btnsText[2], btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
                 ]),
                 Row(children: [
-                  buton('^', btnVisibility, fs, btnpading),
-                  buton('log', btnVisibility, fs, btnpading),
-                  buton('ln', btnVisibility, fs, btnpading),
-                  buton('(', btnVisibility, fs, btnpading),
-                  buton(')', btnVisibility, fs, btnpading),
+                  buton('^', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton(btnsText[3], btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton(btnsText[4], btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton('(', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton(')', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
                 ]),
                 Row(children: [
-                  buton('x\u00B2', btnVisibility, fs, btnpading),
-                  buton('AC', true, fs, btnpading),
-                  buton('C', true, fs, btnpading),
-                  buton('%', true, fs, btnpading),
-                  buton('\u00F7', true, fs, btnpading),
+                  buton('x\u00B2', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton(
+                    'AC',
+                    true,
+                    fs,
+                    btnpading,
+                    colour: Colors.deepOrange,
+                  ),
+                  buton(' ', true, fs, btnpading,
+                      //, colour: Colors.deepOrange,
+                      backspace: (Icons.backspace_outlined),
+                      colour: Colors.deepOrange),
+                  buton('%', true, fs, btnpading, colour: Colors.black54),
+                  buton('\u00F7', true, fs, btnpading, colour: Colors.black54),
                 ]),
                 Row(children: [
-                  buton('!', btnVisibility, fs, btnpading),
-                  buton('7', true, fs, btnpading),
-                  buton('8', true, fs, btnpading),
-                  buton('9', true, fs, btnpading),
-                  buton('\u00D7', true, fs, btnpading),
+                  buton('!', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton(
+                    '7',
+                    true,
+                    fs,
+                    btnpading,
+                    colour: Colors.black54,
+                  ),
+                  buton('8', true, fs, btnpading, colour: Colors.black54),
+                  buton('9', true, fs, btnpading, colour: Colors.black54),
+                  buton('\u00D7', true, fs, btnpading, colour: Colors.black54),
                 ]),
                 Row(children: [
-                  buton('1/x', btnVisibility, fs, btnpading),
-                  buton('4', true, fs, btnpading),
-                  buton('5', true, fs, btnpading),
-                  buton('6', true, fs, btnpading),
-                  buton('-', true, fs, btnpading),
+                  buton('1/x', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton('4', true, fs, btnpading, colour: Colors.black54),
+                  buton('5', true, fs, btnpading, colour: Colors.black54),
+                  buton('6', true, fs, btnpading, colour: Colors.black54),
+                  buton('-', true, fs, btnpading, colour: Colors.black54),
                 ]),
                 Row(children: [
-                  buton('\u03C0', btnVisibility, fs, btnpading),
-                  buton('1', true, fs, btnpading),
-                  buton('2', true, fs, btnpading),
-                  buton('3', true, fs, btnpading),
-                  buton('+', true, fs, btnpading),
+                  buton('\u03C0', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton('1', true, fs, btnpading, colour: Colors.black54),
+                  buton('2', true, fs, btnpading, colour: Colors.black54),
+                  buton('3', true, fs, btnpading, colour: Colors.black54),
+                  buton('+', true, fs, btnpading, colour: Colors.black54),
                 ]),
                 Row(children: [
-                  buton('e', btnVisibility, fs, btnpading),
-                  buton('\u221A', true, fs, btnpading),
-                  buton('0', true, fs, btnpading),
-                  buton('.', true, fs, btnpading),
-                  buton('=', true, fs, btnpading),
+                  buton('e', btnVisibility, fs, btnpading,
+                      colour: Colors.black54),
+                  buton('\u221A', true, fs, btnpading, colour: Colors.black54),
+                  buton('0', true, fs, btnpading, colour: Colors.black54),
+                  buton('.', true, fs, btnpading, colour: Colors.black54),
+                  buton('=', true, fs, btnpading,
+                      colour: Colors.white, backcolour: Colors.deepOrange),
                 ]),
                 // SizedBox(
                 // height: 39.0,
@@ -145,16 +178,19 @@ class CalculatorState extends State<Calculator> {
   bool btnVisibility = false;
   // static bool listViewVisibility = false;
   double fs = 26;
-  double btnpading = 16.0;
+  double btnpading = 16;
   List<String> btnsText = [
     'sin',
     'cos',
     'tan',
+    'log',
+    'ln',
   ];
   Icon icon1 = Icon(
     Icons.expand_more,
     color: Colors.white,
   );
+  //Icon backspace = Icon(Icons.backspace_outlined);
   //static String displayNum4 = '';
   //static String displayNum3 = '';
   static String displayNum2 = '';
@@ -193,7 +229,7 @@ class CalculatorState extends State<Calculator> {
               .toList();
         }
       }
-      print('${myController.text}...works');
+      //print('${myController.text}...works');
     });
   }
 
@@ -230,9 +266,12 @@ class CalculatorState extends State<Calculator> {
     setState(() {});
   }
 
-  Widget buton(String btnText, bool isvisible, double fs, double btnpadding) {
+  Widget buton(String btnText, bool isvisible, double fs, double btnpadding,
+      {Color? colour, Color? backcolour, IconData? backspace}) {
     btnHandler() {
       setState(() {
+        context.read<AppState>().hidelistview();
+        context.read<AppState>().displayNumfs();
         context.read<AppState>().hidelistview();
         int index = 0;
         switch (btnText) {
@@ -240,8 +279,9 @@ class CalculatorState extends State<Calculator> {
             displayNum = '';
             displayNum2 = '';
             displayResult = '';
+            context.read<AppState>().ac();
             break;
-          case 'C':
+          case ' ':
             displayNum = displayNum.substring(0, displayNum.length - 1);
             break;
           case '÷':
@@ -259,10 +299,15 @@ class CalculatorState extends State<Calculator> {
             break;
           case 'Shift':
             if (btnsText[0] == 'sin') {
-              btnsText.replaceRange(0, 2,
-                  ['sin\u207B\u00B9', 'cos\u207B \u00B9', "tan\u207B\u00B9"]);
+              btnsText.replaceRange(0, 4, [
+                'sin\u207B\u00B9',
+                'cos\u207B \u00B9',
+                "tan\u207B\u00B9",
+                'eˣ',
+                '10ˣ'
+              ]);
             } else {
-              btnsText.replaceRange(0, 2, ['sin', 'cos', "tan"]);
+              btnsText.replaceRange(0, 2, ['sin', 'cos', "tan", 'log', 'ln']);
             }
 
             break;
@@ -288,12 +333,13 @@ class CalculatorState extends State<Calculator> {
             //displayResult = double.parse(displayNum).toString();
             break;
 
-          //case '√':
-
-          //displayNum += '^0.5';
-          //displayResult = sqrt(double.parse(displayNum)).toString();
-          //break;
-
+          case 'eˣ':
+            displayNum += 'e^';
+            //displayResult = sqrt(double.parse(displayNum)).toString();
+            break;
+          case '10ˣ':
+            displayNum += '10^';
+            break;
           default:
             if (btnText.contains(RegExp(r'[sctl]'))) {
               displayNum = displayNum + '$btnText(';
@@ -348,28 +394,50 @@ class CalculatorState extends State<Calculator> {
         if (displayResult != '') {
           displayNum2 = UnitsList.listItem[index].calculate();
         }
+        //if (backspace == Icons.backspace_outlined) {
+        //displayNum = displayNum.substring(0, displayNum.length - 1);
+        // displayNum = displayNum.substring(0, displayNum.length - 1);
+        // print(displayNum);
+        //}
       });
-      print(myController.text.trim() == 'GST');
+      // print(myController.text.trim() == 'GST');
       if (myController.text.trim() == "GST") {
-        print('true gst');
+        // print('true gst');
         context.read<AppState>().gst();
-        print(AppState().displayNum3);
+        //print(AppState().displayNum3);
       }
     }
 
     return Visibility(
-      visible: isvisible,
-      child: Expanded(
-        child: OutlinedButton(
-          style: OutlinedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: btnpading),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0))),
-          onPressed: btnHandler,
-          child: Text(btnText,
-              style: TextStyle(fontSize: fs, color: Colors.black54)),
-        ),
-      ),
-    );
+        visible: isvisible,
+        child: Expanded(
+          child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
+                backgroundColor: backcolour,
+                padding: EdgeInsets.symmetric(vertical: btnpading),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0))),
+            onPressed: btnHandler,
+            child: RichText(
+              text: TextSpan(
+                text: btnText,
+                style: TextStyle(fontSize: fs, color: colour),
+                children: [
+                  WidgetSpan(
+                      child: Icon(
+                    backspace,
+                    color: Colors.deepOrange,
+                  ))
+                ],
+              ),
+              /* child: Text
+          (btnText,
+              style: TextStyle(
+                fontSize: fs,
+                color: colour,
+              )),*/
+            ),
+          ),
+        ));
   }
 }
