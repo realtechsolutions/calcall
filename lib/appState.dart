@@ -11,6 +11,8 @@ class AppState extends ChangeNotifier {
   bool unit1Visibility = false;
   bool displayResultVisibility = true;
   double sizeboxheight = 25;
+  double sizebox2height = 25;
+  double sizebox3height = 15;
   double fsDisplayNum = 45;
 
   Icon icon2 = Icon(
@@ -22,7 +24,7 @@ class AppState extends ChangeNotifier {
   //enum noAlignment = TextAlign.end;
   TextAlign noAlignment = TextAlign.end;
 
-  TextEditingController cgst = TextEditingController(text: 'CGST/IGST');
+  TextEditingController cgst = TextEditingController(text: 'CGST/SGST');
   TextEditingController tax = TextEditingController(text: 'Tax');
   TextEditingController total = TextEditingController(text: 'Total ');
 
@@ -30,12 +32,17 @@ class AppState extends ChangeNotifier {
     cgstVisibility = true;
     //unit2Visibility = false;
     sizeboxheight = 0;
+    sizebox2height = 2;
+    sizebox3height = 0;
+
     notifyListeners();
   }
 
   hideGst() {
     cgstVisibility = false;
     sizeboxheight = 25;
+    sizebox2height = 20;
+    sizebox3height = 15;
     notifyListeners();
   }
 
@@ -67,7 +74,7 @@ class AppState extends ChangeNotifier {
       if (CalculatorState.myController.text.contains('GST')) {
         gstListTileHandler();
       }
-      noAlignment = TextAlign.center;
+      //noAlignment = TextAlign.center;
       //cgstVisibility = false;
       displayResultVisibility = false;
       icon2 = Icon(
@@ -106,22 +113,22 @@ class AppState extends ChangeNotifier {
         case 'Tax 18%':
           var z =
               double.parse(CalculatorState.displayResult.split('=').join(''));
-          displayNum3 = (z * 0.09).toString();
-          displayNum4 = (z * 1.18).toString();
+          displayNum3 = (z * 0.09).toStringAsFixed(2);
+          displayNum4 = (z * 1.18).toStringAsFixed(2);
 
           break;
         case 'Tax 12%':
           var z =
               double.parse(CalculatorState.displayResult.split('=').join(''));
-          displayNum3 = (z * 0.06).toString();
-          displayNum4 = (z * 1.12).toString();
+          displayNum3 = (z * 0.06).toStringAsFixed(2);
+          displayNum4 = (z * 1.12).toStringAsFixed(2);
 
           break;
         case 'Tax 5%':
           var z =
               double.parse(CalculatorState.displayResult.split('=').join(''));
-          displayNum3 = (z * 0.025).toString();
-          displayNum4 = (z * 1.05).toString();
+          displayNum3 = (z * 0.025).toStringAsFixed(2);
+          displayNum4 = (z * 1.05).toStringAsFixed(2);
 
           //return z.toStringAsFixed(2);
           break;

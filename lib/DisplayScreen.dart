@@ -79,24 +79,29 @@ class DisplayScreenState extends State<DisplayScreen> {
                                   child: Text(
                                     total.displayNum4,
                                     maxLines: 1,
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.end,
                                     style: TextStyle(fontSize: 25.0),
                                   )),
                               Expanded(
-                                  flex: 4,
+                                  flex: 5,
                                   child: TextField(
-                                    style: TextStyle(fontSize: 18),
-                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.deepOrange),
+                                    textAlign: TextAlign.end,
                                     textAlignVertical: TextAlignVertical.center,
                                     readOnly: true,
                                     controller: total.total,
                                     onTap: () {},
                                     decoration: InputDecoration(
                                         //hintText: 'CGST/IGST',
+                                        suffixIcon: Icon(
+                                          Icons.book_outlined,
+                                          color: Colors.deepOrange,
+                                        ),
                                         border: InputBorder.none),
                                   )),
-                              Expanded(
-                                  flex: 1, child: Icon(Icons.book_outlined))
+                              //Expanded(
+                              //flex: 1, child: Icon(Icons.book_outlined))
 
                               //Expanded(flex: 1, child: Icon(Icons.arrow_downward))
                             ],
@@ -119,13 +124,14 @@ class DisplayScreenState extends State<DisplayScreen> {
                                 child: Text(
                                   cgs.displayNum3,
                                   maxLines: 1,
-                                  textAlign: TextAlign.center,
+                                  textAlign: TextAlign.end,
                                   style: TextStyle(fontSize: 25.0),
                                 )),
                             Expanded(
-                                flex: 4,
+                                flex: 5,
                                 child: TextField(
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.deepOrange),
                                   textAlign: TextAlign.end,
                                   textAlignVertical: TextAlignVertical.center,
                                   readOnly: true,
@@ -133,9 +139,13 @@ class DisplayScreenState extends State<DisplayScreen> {
                                   onTap: () {},
                                   decoration: InputDecoration(
                                       //hintText: 'CGST/IGST',
+                                      suffixIcon: Icon(
+                                        Icons.book_outlined,
+                                        color: Colors.deepOrange,
+                                      ),
                                       border: InputBorder.none),
                                 )),
-                            Expanded(flex: 1, child: Icon(Icons.book_outlined))
+                            //Expanded(flex: 1, child: Icon(Icons.book_outlined))
 
                             //Expanded(flex: 1, child: Icon(Icons.arrow_downward))
                           ],
@@ -156,14 +166,15 @@ class DisplayScreenState extends State<DisplayScreen> {
                                   child: Text(
                                     widget.displayNum2,
                                     maxLines: 1,
-                                    textAlign: unitrow.noAlignment,
+                                    textAlign: TextAlign.end,
                                     style: TextStyle(fontSize: 25.0),
                                   )),
                               Expanded(
-                                  flex: 4,
+                                  flex: 5,
                                   child: TextField(
-                                    style: TextStyle(fontSize: 18),
-                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.deepOrange),
+                                    textAlign: TextAlign.end,
                                     textAlignVertical: TextAlignVertical.center,
                                     readOnly: true,
                                     controller: widget.myController2,
@@ -174,15 +185,23 @@ class DisplayScreenState extends State<DisplayScreen> {
                                     },
                                     decoration: InputDecoration(
                                         hintText: 'Unit2',
+                                        suffixIcon: Icon(
+                                          Icons.arrow_downward,
+                                          color: Colors.deepOrange,
+                                        ),
                                         border: InputBorder.none),
                                   )),
-                              Expanded(
-                                  flex: 1, child: Icon(Icons.arrow_downward))
+                              // Expanded(
+                              //flex: 1, child: Icon(Icons.arrow_downward))
                             ],
                           ),
                         ),
                       ),
                     ),
+                    Consumer<AppState>(
+                        builder: (context, sizebox3, child) => SizedBox(
+                              height: sizebox3.sizebox3height,
+                            )),
                     Consumer<AppState>(
                       builder: (context, unit1row, child) => Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -192,7 +211,7 @@ class DisplayScreenState extends State<DisplayScreen> {
                             child: Text(
                               widget.displayNum,
                               maxLines: 1,
-                              textAlign: unit1row.noAlignment,
+                              textAlign: TextAlign.end,
                               style: TextStyle(
                                 fontSize: unit1row.fsDisplayNum,
                                 fontWeight: FontWeight.w300,
@@ -203,15 +222,16 @@ class DisplayScreenState extends State<DisplayScreen> {
                             builder: (context, unit1, child) => Visibility(
                               visible: unit1.unit1Visibility,
                               child: Expanded(
-                                  flex: 4,
+                                  flex: 5,
                                   child: TextField(
                                     // keyboardType: ,
                                     //inputFormatters: [
                                     //FilteringTextInputFormatter.allow(
                                     // RegExp("[a-zA-z]"))
                                     //]
-
-                                    textAlign: TextAlign.center,
+                                    cursorColor: Colors.blueAccent,
+                                    cursorHeight: 24,
+                                    textAlign: TextAlign.end,
                                     textAlignVertical: TextAlignVertical.center,
                                     controller: widget.myController,
                                     onTap: () {
@@ -222,26 +242,31 @@ class DisplayScreenState extends State<DisplayScreen> {
                                     onChanged: widget.printText,
 
                                     decoration: InputDecoration(
+                                        suffixIcon: Icon(
+                                          Icons.search,
+                                          color: Colors.deepOrange,
+                                        ),
                                         hintText: 'Unit1',
                                         border: InputBorder.none),
-                                    style: TextStyle(fontSize: 19),
+
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.deepOrange),
                                   )),
                             ),
                           ),
-                          Consumer<AppState>(
-                            builder: (context, searchicon, child) => Visibility(
-                                visible: searchicon.unit1Visibility,
-                                child: Expanded(
-                                    flex: 1, child: Icon(Icons.search))),
-                          )
+                          //Consumer<AppState>(
+                          // builder: (context, searchicon, child) => Visibility(
+                          // visible: searchicon.unit1Visibility,
+                          //child: Expanded(
+                          // flex: 1, child: Icon(Icons.search))),
+                          //)
                         ],
                       ),
                     ),
-                    Visibility(
-                        visible: true,
-                        child: SizedBox(
-                          height: 20,
-                        )),
+                    Consumer<AppState>(
+                        builder: (context, sizebox2, child) => SizedBox(
+                              height: sizebox2.sizebox2height,
+                            )),
                     Consumer<AppState>(
                       builder: (context, displayresult, child) => Visibility(
                         visible: displayresult.displayResultVisibility,
