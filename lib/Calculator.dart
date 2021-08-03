@@ -1,15 +1,19 @@
 //import 'dart:math';
 
+import 'dart:ui';
+import 'main.dart';
 import 'package:calcall/appState.dart';
 import 'package:calcall/unititem.dart';
 import 'package:calcall/unitsList.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'DisplayScreen.dart';
 import 'package:function_tree/function_tree.dart';
 import 'package:calcall/unitsList2.dart';
 import 'package:calcall/helper.dart';
+//import 'ad_helper.dart';
 
 class Calculator extends StatefulWidget {
   @override
@@ -17,176 +21,201 @@ class Calculator extends StatefulWidget {
 }
 
 class CalculatorState extends State<Calculator> {
+  late BannerAd banner;
+  @override
+  void initState() {
+    super.initState();
+
+    banner = BannerAd(
+        size: AdSize.banner,
+        adUnitId: BannerAd.testAdUnitId,
+        listener: BannerAdListener(),
+        request: AdRequest());
+    banner?.load();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    banner?.dispose();
+    // banner ? = null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(//mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-      DisplayScreen(
-        displayNum: displayNum,
-        displayNum2: displayNum2,
-        // displayNum3: displayNum3,
-        //displayNum4: displayNum4,
-        displayResult: displayResult,
-        hideUnits: hideUnits,
-        //searchList: searchList,
-        icon1: icon1,
-        sciButtonHandler: sciButtonHandler,
-        // printLatestValue: printLatestValue,
-        printText: printText,
-        myController: myController,
-        myController2: myController2,
-        showUnit2: showUnit2,
-      ),
-      Stack(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          alignment: AlignmentDirectional.topEnd,
-          children: [
-            // Expanded(
-            //flex: 2,
-            //child:
-            Container(
-              margin: EdgeInsets.only(top: 0),
-              //color: Colors.grey[100],
-              child: Column(
-                children: [
-                  Row(children: [
-                    buton('    Shift', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton('    Rad', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton(btnsText[0], btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton(btnsText[1], btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton(btnsText[2], btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                  ]),
-                  Row(children: [
-                    buton('    ^', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton(btnsText[3], btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton(btnsText[4], btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton('    (', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton('    )', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                  ]),
-                  Row(children: [
-                    buton('    x\u00B2', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton(
-                      '    AC',
-                      true,
-                      fs,
-                      btnpading,
-                      colour: Colors.deepOrange,
-                      backspace: (null),
-                    ),
-                    buton(' ', true, fs, btnpading,
-                        //, colour: Colors.deepOrange,
-                        backspace: (Icons.backspace_outlined),
-                        colour: Colors.deepOrange,
-                        align: Alignment.center),
-                    buton('    %', true, fs, btnpading, colour: Colors.black54),
-                    buton('    \u00F7', true, fs, btnpading,
-                        colour: Colors.black54),
-                  ]),
-                  Row(children: [
-                    buton('    !', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton(
-                      '    7',
-                      true,
-                      fs,
-                      btnpading,
-                      colour: Colors.black54,
-                      align: Alignment.center,
-                    ),
-                    buton('    8', true, fs, btnpading,
-                        colour: Colors.black54, backspace: null),
-                    buton('    9', true, fs, btnpading, colour: Colors.black54),
-                    buton('    \u00D7', true, fs, btnpading,
-                        colour: Colors.black54),
-                  ]),
-                  Row(children: [
-                    buton('    1/x', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton('    4', true, fs, btnpading, colour: Colors.black54),
-                    buton('    5', true, fs, btnpading, colour: Colors.black54),
-                    buton('    6', true, fs, btnpading, colour: Colors.black54),
-                    buton('    -', true, fs, btnpading, colour: Colors.black54),
-                  ]),
-                  Row(children: [
-                    buton('    \u03C0', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton('    1', true, fs, btnpading, colour: Colors.black54),
-                    buton('    2', true, fs, btnpading, colour: Colors.black54),
-                    buton('    3', true, fs, btnpading, colour: Colors.black54),
-                    buton('    +', true, fs, btnpading, colour: Colors.black54),
-                  ]),
-                  Row(children: [
-                    buton('    e', btnVisibility, fs, btnpading,
-                        colour: Colors.black54),
-                    buton('    \u221A', true, fs, btnpading,
-                        colour: Colors.black54),
-                    buton('    0', true, fs, btnpading, colour: Colors.black54),
-                    buton('    .', true, fs, btnpading, colour: Colors.black54),
-                    buton(
-                      '    =',
-                      true,
-                      fs,
-                      btnpading,
-                      colour: Colors.white,
-                      backcolour: Colors.deepOrange,
-                    )
-                    //left: 10.0),
-                  ]),
-                  // SizedBox(
-                  // height: 39.0,
-                  //)
-                ],
-              ),
-            ),
-            Consumer<AppState>(
-              builder: (context, listviewVisibility, child) => Visibility(
-                visible: listviewVisibility.listviewVisibility,
-                child: Expanded(
-                    //flex: 1,
+    //final AdWidget adwidget = AdWidget(ad: banner);
+    return Stack(alignment: Alignment.topLeft, children: [
+      Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        DisplayScreen(
+          displayNum: displayNum,
 
-                    child: Container(
-                        color: Colors.white,
-                        margin: EdgeInsets.only(top: 0),
-                        padding: EdgeInsets.only(top: 0),
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        width: 180,
-                        alignment: Alignment.topRight,
-                        child: Expanded(
-                          child: UnitsList(searchedListitem, addUnitTotextfield,
-                              hideListView),
-                        ))),
-              ),
+          displayNum2: displayNum2,
+          // displayNum3: displayNum3,
+          //displayNum4: displayNum4,
+          displayResult: displayResult,
+          hideUnits: hideUnits,
+          //searchList: searchList,
+          icon1: icon1,
+          sciButtonHandler: sciButtonHandler,
+          // printLatestValue: printLatestValue,
+          printText: printText,
+          myController: myController,
+          myController2: myController2,
+          showUnit2: showUnit2,
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 0),
+          //color: Colors.grey[100],
+          child: Column(
+            children: [
+              Row(children: [
+                buton('    Shift', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton('    Rad', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton(btnsText[0], btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton(btnsText[1], btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton(btnsText[2], btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+              ]),
+              Row(children: [
+                buton('    ^', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton(btnsText[3], btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton(btnsText[4], btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton('    (', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton('    )', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+              ]),
+              Row(children: [
+                buton('    x\u00B2', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton(
+                  '    AC',
+                  true,
+                  fs,
+                  btnpading,
+                  colour: Colors.deepOrange,
+                  backspace: (null),
+                ),
+                buton(' ', true, fs, btnpading,
+                    //, colour: Colors.deepOrange,
+                    backspace: (Icons.backspace_outlined),
+                    colour: Colors.deepOrange,
+                    align: Alignment.center),
+                buton('    %', true, fs, btnpading, colour: Colors.black),
+                buton('    \u00F7', true, fs, btnpading, colour: Colors.black),
+              ]),
+              Row(children: [
+                buton('    !', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton(
+                  '    7',
+                  true,
+                  fs,
+                  btnpading,
+                  colour: Colors.black,
+                  align: Alignment.center,
+                ),
+                buton('    8', true, fs, btnpading,
+                    colour: Colors.black, backspace: null),
+                buton('    9', true, fs, btnpading, colour: Colors.black),
+                buton('    \u00D7', true, fs, btnpading, colour: Colors.black),
+              ]),
+              Row(children: [
+                buton('    1/x', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton('    4', true, fs, btnpading, colour: Colors.black),
+                buton('    5', true, fs, btnpading, colour: Colors.black),
+                buton('    6', true, fs, btnpading, colour: Colors.black),
+                buton('    -', true, fs, btnpading, colour: Colors.black),
+              ]),
+              Row(children: [
+                buton('    \u03C0', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton('    1', true, fs, btnpading, colour: Colors.black),
+                buton('    2', true, fs, btnpading, colour: Colors.black),
+                buton('    3', true, fs, btnpading, colour: Colors.black),
+                buton('    +', true, fs, btnpading, colour: Colors.black),
+              ]),
+              Row(children: [
+                buton('    e', btnVisibility, fs, btnpading,
+                    colour: Colors.black),
+                buton('    \u221A', true, fs, btnpading, colour: Colors.black),
+                buton('    0', true, fs, btnpading, colour: Colors.black),
+                buton('    .', true, fs, btnpading, colour: Colors.black),
+                buton(
+                  '    =',
+                  true,
+                  fs,
+                  btnpading,
+                  colour: Colors.white,
+                  backcolour: Colors.deepOrange,
+                )
+                //left: 10.0),
+              ]),
+              // SizedBox(
+              // height: 39.0,
+              //)
+            ],
+          ),
+        ),
+        Positioned(
+          top: 5,
+          bottom: 200,
+          child: Consumer<AppState>(
+            builder: (context, listviewVisibility, child) => Visibility(
+              visible: listviewVisibility.listviewVisibility,
+              child: Expanded(
+                  //flex: 1,
+
+                  child: Container(
+                      color: Colors.yellow,
+                      margin: EdgeInsets.only(top: 0),
+                      padding: EdgeInsets.only(top: 0),
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      width: 180,
+                      alignment: Alignment.topRight,
+                      child: Expanded(
+                        child: UnitsList(
+                            searchedListitem, addUnitTotextfield, hideListView),
+                      ))),
             ),
-            Consumer<AppState>(
-              builder: (context, listviewVisibility, child) => Visibility(
-                visible: listviewVisibility.listviewVisibility2,
-                child: Expanded(
-                    flex: 2,
-                    child: Container(
-                        color: Colors.white,
-                        margin: EdgeInsets.only(top: 0),
-                        padding: EdgeInsets.only(top: 0),
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        width: 180,
-                        alignment: Alignment.topRight,
-                        child: Expanded(
-                          child: UnitsList2(searchedListitem2,
-                              addUnitTotextfield, hideListView),
-                        ))),
-              ),
+          ),
+        ),
+        Positioned(
+          bottom: 200,
+          top: 200,
+          child: Consumer<AppState>(
+            builder: (context, listviewVisibility, child) => Visibility(
+              visible: listviewVisibility.listviewVisibility2,
+              child: Expanded(
+                  //flex: 2,
+                  child: Container(
+                      color: Colors.white,
+                      margin: EdgeInsets.only(top: 0),
+                      padding: EdgeInsets.only(top: 0),
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      width: 180,
+                      alignment: Alignment.topRight,
+                      child: Expanded(
+                        child: UnitsList2(searchedListitem2, addUnitTotextfield,
+                            hideListView),
+                      ))),
             ),
-          ])
+          ),
+        ),
+        Container(
+          height: 60,
+          width: double.infinity,
+          child: AdWidget(ad: banner),
+        )
+      ]),
     ]);
   }
 
@@ -310,9 +339,9 @@ class CalculatorState extends State<Calculator> {
             displayResult = '';
             context.read<AppState>().ac();
             break;
-          //case ' ⌫':
-          // displayNum = displayNum.substring(0, displayNum.length - 1);
-          //break;
+          case '':
+            displayNum = displayNum.substring(0, displayNum.length - 1);
+            break;
           case '÷':
             displayNum += '÷';
 
@@ -329,11 +358,11 @@ class CalculatorState extends State<Calculator> {
           case 'Shift':
             if (btnsText[0].trim() == 'sin') {
               btnsText.replaceRange(0, 4, [
-                '    sin\u207B\u00B9',
-                '    cos\u207B \u00B9',
-                "    tan\u207B\u00B9",
-                '    eˣ',
-                '    10ˣ'
+                '  sin\u207B\u00B9',
+                '  cos\u207B \u00B9',
+                "  tan\u207B\u00B9",
+                '  eˣ',
+                '  10ˣ'
               ]);
             } else {
               btnsText.replaceRange(
@@ -472,70 +501,4 @@ class CalculatorState extends State<Calculator> {
       ),
     );
   }
-
-  /* Widget iconbuton(
-    String btnText,
-    bool isvisible,
-    double fs,
-    double btnpadding, {
-    Color? colour,
-    Color? backcolour,
-    IconData? backspace,
-  }) {
-    btnHandler() {
-      setState(() {
-        displayNum = displayNum.substring(0, displayNum.length - 1);
-      });
-      // print(myController.text.trim() == 'GST');
-      // if (myController.text.trim() == "GST") {
-      // print('true gst');
-      //context.read<AppState>().gst();
-      //print(AppState().displayNum3);
-      // }
-    }
-
-    return Visibility(
-        visible: isvisible,
-        child: Expanded(
-          child: OutlinedButton(
-            //label: Text(
-            //'C',
-            //style: TextStyle(fontSize: fs,),
-            // ),
-            //icon: Icon(
-            // null,
-            //size: fs,
-            //color: Colors.deepOrange,
-            //),
-            style: OutlinedButton.styleFrom(
-                alignment: Alignment.center,
-                backgroundColor: backcolour,
-                padding: EdgeInsets.symmetric(vertical: btnpading),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0))),
-            onPressed: btnHandler,
-
-            child: RichText(
-              textAlign: TextAlign.end,
-              text: TextSpan(
-                text: btnText,
-                style: TextStyle(fontSize: fs, color: colour),
-                children: [
-                  WidgetSpan(
-                      child: Icon(
-                    backspace,
-                    color: Colors.deepOrange,
-                    size: fs,
-                  ))
-                ],
-              ),
-              /*child: Text(btnText,
-              style: TextStyle(
-                fontSize: fs,
-                color: colour,
-              )),*/
-            ),
-          ),
-        ));
-  }*/
 }

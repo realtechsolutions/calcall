@@ -1,13 +1,30 @@
+//import 'dart:js';
+
 import 'package:calcall/appState.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'Calculator.dart';
 import 'package:provider/provider.dart';
-import 'helper.dart';
+//import 'helper.dart';
+//import 'package:google_mobile_ads/google_mobile_ads.dart';
+//import 'ad_helper.dart';
 
 void main() {
-  print(fact(9));
-  runApp(
-      ChangeNotifierProvider(create: (context) => AppState(), child: MyApp()));
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
+  // final initfuture = MobileAds.instance.initialize();
+  //final adhelper = AdHelper(initfuture);
+  //AdHelper.initialize();
+
+  // AdHelper.myBanner.load();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => AppState()),
+    // Provider.value(
+    //value: adhelper,
+    // builder: (context, child) => MyApp(),
+    //)
+  ], child: MyApp()));
+  //ChangeNotifierProvider(create: (context) => AppState(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +32,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Calcall",
-      theme: ThemeData(primarySwatch: Colors.grey),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Calculator(),
@@ -23,4 +41,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
