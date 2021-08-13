@@ -5,7 +5,6 @@ class AppState extends ChangeNotifier {
   bool listviewVisibility = false;
   bool listviewVisibility2 = false;
   bool sizedBox1Visibility = true;
-  // bool sizedBox2Visibility = true;
   bool cgstVisibility = false;
   bool unit2Visibility = false;
   bool unit1Visibility = false;
@@ -21,16 +20,14 @@ class AppState extends ChangeNotifier {
   );
   String displayNum3 = '';
   String displayNum4 = '';
-  //enum noAlignment = TextAlign.end;
   TextAlign noAlignment = TextAlign.end;
 
   TextEditingController cgst = TextEditingController(text: 'CGST/SGST');
-  TextEditingController tax = TextEditingController(text: 'Tax');
   TextEditingController total = TextEditingController(text: 'Total ');
 
   gstListTileHandler() {
     cgstVisibility = true;
-    //unit2Visibility = false;
+
     sizeboxheight = 0;
     sizebox2height = 2;
     sizebox3height = 0;
@@ -74,8 +71,6 @@ class AppState extends ChangeNotifier {
       if (CalculatorState.myController.text.contains('GST')) {
         gstListTileHandler();
       }
-      //noAlignment = TextAlign.center;
-      //cgstVisibility = false;
       displayResultVisibility = false;
       icon2 = Icon(
         Icons.chevron_right,
@@ -86,7 +81,6 @@ class AppState extends ChangeNotifier {
       fsDisplayNum = 45;
       noAlignment = TextAlign.end;
 
-      //iconNumber = 0;
       unit1Visibility = false;
       unit2Visibility = false;
       displayResultVisibility = true;
@@ -152,8 +146,4 @@ class AppState extends ChangeNotifier {
       fsDisplayNum = 45;
     }
   }
-
-  //displayNumCenter() {
-  // noAlignment = TextAlign.center;
-  ////}
 }

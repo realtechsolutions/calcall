@@ -1,6 +1,6 @@
-//import 'package:flutter/cupertino.dart';
+import 'package:calcall/Calculator.dart';
 
-import 'Calculator.dart';
+//import 'Calculator.dart';
 
 meter() {
   try {
@@ -8,7 +8,9 @@ meter() {
       case 'Meter':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) * 1;
-        return z.toStringAsFixed(2);
+        CalculatorState.displayNum2 = z.toStringAsFixed(2);
+        break;
+
       case 'cm':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
@@ -90,6 +92,9 @@ cm() {
 
 inch() {
   try {
+    print(' f working');
+    CalculatorState.displayNum2 = 'working';
+    print(CalculatorState.displayNum2);
     switch (CalculatorState.myController2.text) {
       case 'Meter':
         var z =

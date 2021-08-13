@@ -1,11 +1,10 @@
-//import 'package:calcall/DisplayScreen.dart';
 import 'package:calcall/appState.dart';
 import 'package:calcall/unitsList.dart';
 import 'package:flutter/material.dart';
 import 'unititem.dart';
-//import 'DisplayScreen.dart';
 import 'Calculator.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UnitsList2 extends StatefulWidget {
   //Function searchList;
@@ -26,6 +25,11 @@ class UnitsList2 extends StatefulWidget {
 }
 
 class _UnitsList2State extends State<UnitsList2> {
+  setUnit2() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('unit2', CalculatorState.myController2.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -44,30 +48,13 @@ class _UnitsList2State extends State<UnitsList2> {
             setState(() {
               CalculatorState.myController2.text =
                   widget.searchedListitem2[index].name;
-
-              //print(widget.searchedListitem[index].name);
-              //print(CalculatorState.myController.text);
-              // widget.hideListView();
-              //CalculatorState.listViewVisibility = false;
-              //print(CalculatorState.myController2.text);
+              setUnit2();
             });
 
             if (CalculatorState.myController2.text.contains('Tax')) {
               context.read<AppState>().gstListTileHandler();
             }
-            
-
-            // print(Calculator.listViewVisibility);
           },
-          //() {
-          // print(DisplayScreenState().myController.text);
-          // },
-
-          //DisplayScreenState().myController.text = 'huuuu';
-          //print(DisplayScreenState().myController.text);
-
-          //print('new ${DisplayScreenState().myController.text}');
-          //},
           title: Text(
             '${widget.searchedListitem2[index].name}',
             style: TextStyle(fontSize: 18, color: Colors.black54),

@@ -1,5 +1,3 @@
-//import 'dart:math';
-
 import 'dart:ui';
 import 'main.dart';
 import 'package:calcall/appState.dart';
@@ -13,7 +11,7 @@ import 'DisplayScreen.dart';
 import 'package:function_tree/function_tree.dart';
 import 'package:calcall/unitsList2.dart';
 import 'package:calcall/helper.dart';
-//import 'ad_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Calculator extends StatefulWidget {
   @override
@@ -25,13 +23,20 @@ class CalculatorState extends State<Calculator> {
   @override
   void initState() {
     super.initState();
-
+    checkunit1();
     banner = BannerAd(
         size: AdSize.banner,
         adUnitId: BannerAd.testAdUnitId,
         listener: BannerAdListener(),
         request: AdRequest());
     banner?.load();
+  }
+
+  checkunit1() async {
+    String unit1 = await getUnit1() ?? '';
+    myController.text = unit1;
+    String unit2 = await getUnit2() ?? '';
+    myController2.text = unit2;
   }
 
   @override
@@ -43,21 +48,15 @@ class CalculatorState extends State<Calculator> {
 
   @override
   Widget build(BuildContext context) {
-    //final AdWidget adwidget = AdWidget(ad: banner);
-    return Stack(alignment: Alignment.topLeft, children: [
-      Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+    return Stack(children: [
+      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         DisplayScreen(
           displayNum: displayNum,
-
           displayNum2: displayNum2,
-          // displayNum3: displayNum3,
-          //displayNum4: displayNum4,
           displayResult: displayResult,
           hideUnits: hideUnits,
-          //searchList: searchList,
           icon1: icon1,
           sciButtonHandler: sciButtonHandler,
-          // printLatestValue: printLatestValue,
           printText: printText,
           myController: myController,
           myController2: myController2,
@@ -65,7 +64,6 @@ class CalculatorState extends State<Calculator> {
         ),
         Container(
           margin: EdgeInsets.only(top: 0),
-          //color: Colors.grey[100],
           child: Column(
             children: [
               Row(children: [
@@ -157,74 +155,75 @@ class CalculatorState extends State<Calculator> {
                   colour: Colors.white,
                   backcolour: Colors.deepOrange,
                 )
-                //left: 10.0),
               ]),
-              // SizedBox(
-              // height: 39.0,
-              //)
             ],
           ),
         ),
-        Positioned(
-          top: 5,
-          bottom: 200,
-          child: Consumer<AppState>(
-            builder: (context, listviewVisibility, child) => Visibility(
-              visible: listviewVisibility.listviewVisibility,
-              child: Expanded(
-                  //flex: 1,
-
-                  child: Container(
-                      color: Colors.yellow,
-                      margin: EdgeInsets.only(top: 0),
-                      padding: EdgeInsets.only(top: 0),
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      width: 180,
-                      alignment: Alignment.topRight,
-                      child: Expanded(
-                        child: UnitsList(
-                            searchedListitem, addUnitTotextfield, hideListView),
-                      ))),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 200,
-          top: 200,
-          child: Consumer<AppState>(
-            builder: (context, listviewVisibility, child) => Visibility(
-              visible: listviewVisibility.listviewVisibility2,
-              child: Expanded(
-                  //flex: 2,
-                  child: Container(
-                      color: Colors.white,
-                      margin: EdgeInsets.only(top: 0),
-                      padding: EdgeInsets.only(top: 0),
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      width: 180,
-                      alignment: Alignment.topRight,
-                      child: Expanded(
-                        child: UnitsList2(searchedListitem2, addUnitTotextfield,
-                            hideListView),
-                      ))),
-            ),
-          ),
-        ),
         Container(
+          margin: EdgeInsets.only(bottom: 0),
           height: 60,
           width: double.infinity,
           child: AdWidget(ad: banner),
         )
       ]),
+      Consumer<AppState>(
+        builder: (context, listviewVisibility, child) => Visibility(
+          visible: listviewVisibility.listviewVisibility,
+          child: Container(
+              color: Colors.white,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.355,
+                  left: MediaQuery.of(context).size.width * 0.50,
+                  bottom: 62),
+              padding: EdgeInsets.only(top: 0),
+              height: MediaQuery.of(context).size.height * 0.62,
+              width: 180,
+              alignment: Alignment.topRight,
+              child: Expanded(
+                child: UnitsList(
+                    searchedListitem, addUnitTotextfield, hideListView),
+              )),
+        ),
+      ),
+      Consumer<AppState>(
+        builder: (context, listviewVisibility, child) => Visibility(
+          visible: listviewVisibility.listviewVisibility2,
+          child: Container(
+              color: Colors.white,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.3,
+                  left: MediaQuery.of(context).size.width * 0.55),
+              padding: EdgeInsets.only(top: 0),
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: 180,
+              alignment: Alignment.topRight,
+              child: Expanded(
+                child: UnitsList2(
+                    searchedListitem2, addUnitTotextfield, hideListView),
+              )),
+        ),
+      ),
     ]);
   }
 
-  static final TextEditingController myController = TextEditingController();
-  static final TextEditingController myController2 = TextEditingController();
+  static getUnit1() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? unit1 = pref.getString('unit1');
+    return unit1;
+  }
+
+  static getUnit2() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? unit2 = pref.getString('unit2');
+    return unit2;
+  }
+
+  static TextEditingController myController = TextEditingController();
+  static TextEditingController myController2 = TextEditingController();
   bool unitsVisibility = false;
   bool btnVisibility = false;
   // static bool listViewVisibility = false;
-  double fs = 26;
+  double fs = 27;
   double btnpading = 17;
   double leftpad = 5;
   List<String> btnsText = [
@@ -238,9 +237,6 @@ class CalculatorState extends State<Calculator> {
     Icons.expand_more,
     color: Colors.white,
   );
-  //Icon backspace = Icon(Icons.backspace_outlined);
-  //static String displayNum4 = '';
-  //static String displayNum3 = '';
   static String displayNum2 = '';
   static String displayNum = '';
   static String displayResult = '';
@@ -277,7 +273,6 @@ class CalculatorState extends State<Calculator> {
               .toList();
         }
       }
-      //print('${myController.text}...works');
     });
   }
 
@@ -289,7 +284,7 @@ class CalculatorState extends State<Calculator> {
     setState(() {
       if (btnVisibility) {
         btnVisibility = !btnVisibility;
-        fs = 26.0;
+        fs = 27.0;
         btnpading = 17;
         icon1 = Icon(
           Icons.expand_more,
@@ -318,9 +313,7 @@ class CalculatorState extends State<Calculator> {
     String btnText,
     bool isvisible,
     double fs,
-    double btnpadding,
-    //double leftpad,
-    {
+    double btnpadding, {
     Color? colour,
     Color? backcolour,
     IconData? backspace,
@@ -330,7 +323,7 @@ class CalculatorState extends State<Calculator> {
       setState(() {
         context.read<AppState>().hidelistview();
         context.read<AppState>().displayNumfs();
-        context.read<AppState>().hidelistview();
+        context.read<AppState>().hidelistview2();
         int index = 0;
         switch (btnText.trim()) {
           case 'AC':
@@ -382,19 +375,13 @@ class CalculatorState extends State<Calculator> {
           case 'π':
             displayNum = '3.141';
             break;
-          //case '!':
-          //displayNum += ' $btnText';
-          //displayResult = double.parse(displayNum).toString();
-          //break;
 
           case '%':
             displayNum += '/100';
-            //displayResult = double.parse(displayNum).toString();
             break;
 
           case 'eˣ':
             displayNum += 'e^';
-            //displayResult = sqrt(double.parse(displayNum)).toString();
             break;
           case '10ˣ':
             displayNum += '10^';
@@ -408,7 +395,6 @@ class CalculatorState extends State<Calculator> {
         }
         if (!displayNum.contains(RegExp(r'[.+-]'))) {
           displayNum = displayNum.replaceAll(',', '');
-          print(displayNum);
           displayNum = displayNum.replaceAllMapped(
               RegExp(r'\d(?=(\d{3})+$)'), (match) => '${match[0]},');
         } else {}
@@ -420,8 +406,6 @@ class CalculatorState extends State<Calculator> {
             .join('*')
             .split(',')
             .join('');
-        //a = a.replaceAllMapped('√', (match) =>
-        // null)
 
         try {
           displayResult = '=${a.interpret().toString()}';
@@ -436,12 +420,7 @@ class CalculatorState extends State<Calculator> {
           }
           if (a.contains('!')) {
             a = a.split('!').join('');
-            print(a);
             displayResult = (fact(double.parse(a))).toString();
-            // a += '/2.302585';
-            //a = a.split('√').join('') + '^0.5';
-            //var
-            //displayResult = a.interpret().toString();
           }
         } catch (e) {}
 
@@ -453,17 +432,10 @@ class CalculatorState extends State<Calculator> {
         if (displayResult != '') {
           displayNum2 = UnitsList.listItem[index].calculate();
         }
-        //if (backspace == Icons.backspace_outlined) {
-        //displayNum = displayNum.substring(0, displayNum.length - 1);
-        // displayNum = displayNum.substring(0, displayNum.length - 1);
-        // print(displayNum);
-        //}
       });
-      // print(myController.text.trim() == 'GST');
       if (myController.text.trim() == "GST") {
         // print('true gst');
         context.read<AppState>().gst();
-        //print(AppState().displayNum3);
       }
     }
 
@@ -492,12 +464,7 @@ class CalculatorState extends State<Calculator> {
                   ))
                 ],
               ),
-              //label: Text(btnText,
-              //style: TextStyle(
-              //fontSize: fs,
-              //color: colour,
             )),
-        //icon: Icon(backspace),
       ),
     );
   }

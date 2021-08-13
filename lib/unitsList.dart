@@ -1,10 +1,8 @@
-//import 'package:calcall/DisplayScreen.dart';
-//import 'package:calcall/DisplayScreen.dart';
 import 'package:calcall/helper.dart';
 import 'package:calcall/appState.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'unititem.dart';
-//import 'DisplayScreen.dart';
 import 'Calculator.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +12,6 @@ class UnitsList extends StatefulWidget {
   final Function addUnitToTextfield;
   final Function hideListview;
   UnitsList(this.searchedListitem, this.addUnitToTextfield, this.hideListview);
-  //final int listviewIndex;
 
   @override
   _UnitsListState createState() => _UnitsListState();
@@ -94,11 +91,14 @@ class UnitsList extends StatefulWidget {
     UnitItem('Tax 12%', Icon(Icons.account_balance), 'tax', gst),
     UnitItem('Tax 5%', Icon(Icons.account_balance), 'tax', gst),
   ];
-
-  //static List<UnitItem> searchedListitem = listItem;
 }
 
 class _UnitsListState extends State<UnitsList> {
+  setUnit1() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('unit1', CalculatorState.myController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -115,10 +115,12 @@ class _UnitsListState extends State<UnitsList> {
             context.read<AppState>().hidelistview();
             context.read<AppState>().hideGst();
             //context.read<AppState>().gstListTileHandler();
+            // SharedPreferences pref =   SharedPreferences.getInstance();
 
             setState(() {
               CalculatorState.myController.text =
                   widget.searchedListitem[index].name;
+              setUnit1();
             });
           },
 
