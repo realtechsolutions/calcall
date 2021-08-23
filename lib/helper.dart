@@ -1232,7 +1232,7 @@ bigha() {
       case 'Kanda':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
-                5732.2;
+                400;
         return z.toStringAsFixed(2);
 
       default:
@@ -1451,7 +1451,7 @@ joule() {
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 0.000947817;
         return z.toStringAsFixed(2);
-      case 'kWH':
+      case 'kWh':
         var z =
             double.parse(CalculatorState.displayResult.split('=').join('')) *
                 2.7778e-7;

@@ -2,6 +2,7 @@ import 'package:calcall/Calculator.dart';
 import 'package:flutter/material.dart';
 
 class AppState extends ChangeNotifier {
+  // double screenheight = MediaQuery.of(context).size.height;
   bool listviewVisibility = false;
   bool listviewVisibility2 = false;
   bool sizedBox1Visibility = true;
@@ -124,7 +125,6 @@ class AppState extends ChangeNotifier {
           displayNum3 = (z * 0.025).toStringAsFixed(2);
           displayNum4 = (z * 1.05).toStringAsFixed(2);
 
-          //return z.toStringAsFixed(2);
           break;
         default:
           return 'incorect';

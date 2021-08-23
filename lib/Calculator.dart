@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'main.dart';
 import 'package:calcall/appState.dart';
 import 'package:calcall/unititem.dart';
 import 'package:calcall/unitsList.dart';
@@ -24,12 +23,13 @@ class CalculatorState extends State<Calculator> {
   void initState() {
     super.initState();
     checkunit1();
+
     banner = BannerAd(
         size: AdSize.banner,
-        adUnitId: BannerAd.testAdUnitId,
+        adUnitId: 'ca-app-pub-2974455624523400/8947351261',
         listener: BannerAdListener(),
         request: AdRequest());
-    banner?.load();
+    banner.load();
   }
 
   checkunit1() async {
@@ -42,14 +42,14 @@ class CalculatorState extends State<Calculator> {
   @override
   void dispose() {
     super.dispose();
-    banner?.dispose();
-    // banner ? = null;
+    banner.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    screenHeight = MediaQuery.of(context).size.height;
     return Stack(children: [
-      Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+      Column(mainAxisAlignment: MainAxisAlignment.start, children: [
         DisplayScreen(
           displayNum: displayNum,
           displayNum2: displayNum2,
@@ -61,6 +61,14 @@ class CalculatorState extends State<Calculator> {
           myController: myController,
           myController2: myController2,
           showUnit2: showUnit2,
+        ),
+        InkWell(
+          onTap: sciButtonHandler,
+          child: Container(
+              child: Center(child: icon1),
+              width: MediaQuery.of(context).size.width,
+              height: 30,
+              color: Colors.blueAccent),
         ),
         Container(
           margin: EdgeInsets.only(top: 0),
@@ -179,10 +187,8 @@ class CalculatorState extends State<Calculator> {
               height: MediaQuery.of(context).size.height * 0.62,
               width: 180,
               alignment: Alignment.topRight,
-              child: Expanded(
-                child: UnitsList(
-                    searchedListitem, addUnitTotextfield, hideListView),
-              )),
+              child: UnitsList(
+                  searchedListitem, addUnitTotextfield, hideListView)),
         ),
       ),
       Consumer<AppState>(
@@ -197,10 +203,8 @@ class CalculatorState extends State<Calculator> {
               height: MediaQuery.of(context).size.height * 0.5,
               width: 180,
               alignment: Alignment.topRight,
-              child: Expanded(
-                child: UnitsList2(
-                    searchedListitem2, addUnitTotextfield, hideListView),
-              )),
+              child: UnitsList2(
+                  searchedListitem2, addUnitTotextfield, hideListView)),
         ),
       ),
     ]);
@@ -226,6 +230,8 @@ class CalculatorState extends State<Calculator> {
   double fs = 27;
   double btnpading = 17;
   double leftpad = 5;
+  static double screenHeight = 0;
+  //static double displyScreenHeight = screenHeight * 0.36;
   List<String> btnsText = [
     '   sin',
     '   cos',
@@ -250,7 +256,6 @@ class CalculatorState extends State<Calculator> {
 
   void printText(text) {
     setState(() {
-      // print(text);
       searchedListitem = UnitsList.listItem
           .where((element) =>
               element.name
@@ -290,15 +295,17 @@ class CalculatorState extends State<Calculator> {
           Icons.expand_more,
           color: Colors.white,
         );
+        //screenHeight =screenHeight * 0.36;
       } else {
         btnVisibility = !btnVisibility;
-        fs = 16.0;
+        fs = 17.0;
         btnpading = 14;
 
         icon1 = Icon(
           Icons.expand_less,
           color: Colors.white,
         );
+        //screenHeight = screenHeight * 0.34;
       }
     });
   }
@@ -434,7 +441,6 @@ class CalculatorState extends State<Calculator> {
         }
       });
       if (myController.text.trim() == "GST") {
-        // print('true gst');
         context.read<AppState>().gst();
       }
     }

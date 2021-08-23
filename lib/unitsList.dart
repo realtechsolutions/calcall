@@ -7,7 +7,6 @@ import 'Calculator.dart';
 import 'package:provider/provider.dart';
 
 class UnitsList extends StatefulWidget {
-  //Function searchList;
   final List<UnitItem> searchedListitem;
   final Function addUnitToTextfield;
   final Function hideListview;
@@ -21,7 +20,6 @@ class UnitsList extends StatefulWidget {
         'Meter',
         Icon(
           Icons.straighten,
-          //color: Colors.white,
         ),
         'Length',
         meter),
@@ -108,14 +106,11 @@ class _UnitsListState extends State<UnitsList> {
         return ListTile(
           dense: true,
           horizontalTitleGap: 1,
-          //tileColor: Colors.black54,
           enabled: true,
           //selected: true,
           onTap: () {
             context.read<AppState>().hidelistview();
             context.read<AppState>().hideGst();
-            //context.read<AppState>().gstListTileHandler();
-            // SharedPreferences pref =   SharedPreferences.getInstance();
 
             setState(() {
               CalculatorState.myController.text =
@@ -126,7 +121,7 @@ class _UnitsListState extends State<UnitsList> {
 
           title: Text(
             '${widget.searchedListitem[index].name}',
-            style: TextStyle(color: Colors.black54, fontSize: 17),
+            style: TextStyle(color: Colors.black54, fontSize: 18),
           ),
           leading: widget.searchedListitem[index].icon,
         );

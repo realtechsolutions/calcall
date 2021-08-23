@@ -7,21 +7,17 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UnitsList2 extends StatefulWidget {
-  //Function searchList;
   final List<UnitItem> searchedListitem2;
   final Function addUnitToTextfield;
 
   final Function hideListview;
   UnitsList2(
       this.searchedListitem2, this.addUnitToTextfield, this.hideListview);
-  //final int listviewIndex;
 
   @override
   _UnitsList2State createState() => _UnitsList2State();
 
   static List<UnitItem> listItem = UnitsList.listItem;
-
-  //static List<UnitItem> searchedListitem = listItem;
 }
 
 class _UnitsList2State extends State<UnitsList2> {
@@ -39,9 +35,7 @@ class _UnitsList2State extends State<UnitsList2> {
         return ListTile(
           dense: true,
           horizontalTitleGap: 1,
-          // tileColor: Colors.black54,
           enabled: true,
-          //selected: true,
           onTap: () {
             context.read<AppState>().hidelistview2();
 

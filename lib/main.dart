@@ -6,7 +6,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'Calculator.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
-//import 'helper.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
